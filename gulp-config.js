@@ -3,7 +3,7 @@
 (function () {
   'use strict';
 
-  var themeDir = 'themes/fourk';
+  var themeDir = 'themes/contrib/fourk';
   var paths = {
     js: themeDir + '/js/**/*.js',
     styleguide_js: [
