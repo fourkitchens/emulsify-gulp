@@ -32,9 +32,7 @@
     },
     cssConfig: {
       enabled: true,
-      src: [
-        themeDir + '/source/**/*.scss'
-      ],
+      src: themeDir + '/source/**/*.scss',
       dest: themeDir + '/dist/',
       flattenDestOutput: true,
       lint: {
