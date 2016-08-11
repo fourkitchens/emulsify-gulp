@@ -98,7 +98,7 @@
     browserSync: {
       enabled: true,
       domain: '127.0.0.1:8888',
-      startPath: 'pattern-lab/public/',
+      startPath: 'pattern-lab/public/index.html',
       reloadDelay: 50,
       reloadDebounce: 750
     }
