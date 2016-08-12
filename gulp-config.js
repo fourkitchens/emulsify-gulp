@@ -75,7 +75,7 @@
           prefix: '@mixin sprite-%s',
           render: {
             scss: {
-              dest: '../source/_patterns/01-atoms/04-images/_icon_sprite.scss',
+              dest: '../source/_patterns/01-atoms/04-images/icons/_icon_sprite.scss',
               template: 'gulp-tasks/svg-icons/sprite.scss.handlebars'
             }
           }
