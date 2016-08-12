@@ -4,7 +4,7 @@ module.exports = function(gulp, config) {
   'use strict';
 
   // General
-  var gulp = require('gulp-help')(require('gulp'));
+  var gulp = require('gulp-help')(gulp);
   var _ = require('lodash');
   var concat = require('gulp-concat');
   var browserSync = require('browser-sync').create();
