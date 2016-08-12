@@ -1,5 +1,5 @@
 {
-  "name": "fourk gulp",
+  "name": "fourk-gulp",
   "description": "A collection of useful gulp tasks.",
   "version": "0.0.1",
   "devDependencies": {
