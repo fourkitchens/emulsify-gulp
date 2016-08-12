@@ -34,8 +34,5 @@
     "node-notifier": "^4.6.0",
     "sassdoc": "^2.1.20",
     "sync-exec": "~0.5.0"
-  },
-  "dependencies": {
-    "aquifer": "aquifer/aquifer#1.0.0-nyun-2"
   }
 }
