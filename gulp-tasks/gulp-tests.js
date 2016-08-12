@@ -178,7 +178,7 @@
 
       // Set up a public tunnel so WebPageTest can see the local site.
       return ngrok.connect(4000, function (err_ngrok, url) {
-        console.log('ngrok - serving your site from ' + url));
+        console.log('ngrok - serving your site from ' + url);
 
         // The `url` variable was supplied by ngrok.
         wpt_test.runTest(url, function(err_wpt, data_wpt) {
