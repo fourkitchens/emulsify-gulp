@@ -1,7 +1,6 @@
 /* globals require */
 
-(function () {
-
+module.exports = function(gulp, config) {
   'use strict';
 
   // General
@@ -16,15 +15,6 @@
 
   // icons
   var svgSprite = require('gulp-svg-sprite');
-
-  var localConfig = {};
-
-  try {
-    localConfig = require('./local.gulp-config');
-  }
-  catch (e) {
-    config = _.defaultsDeep(localConfig, config);
-  }
 
   var tasks = {
     compile: [],
@@ -118,4 +108,4 @@
    */
   gulp.task('build', ['imagemin', 'clean', 'scripts', 'styleguide-scripts', 'css', 'icons']);
 
-})();
+};
