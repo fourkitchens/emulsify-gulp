@@ -5,7 +5,7 @@
 
   var themeDir = 'themes/contrib/fourk';
   var paths = {
-    js: themeDir + '/js/**/*.js',
+    js: themeDir + '/source/_patterns/00-base/global/*.js',
     styleguide_js: [
       themeDir + '/js/**/*.js',
       themeDir + '/source/_patterns/**/*.js'
