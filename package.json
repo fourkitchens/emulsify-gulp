@@ -1,7 +1,7 @@
 {
   "name": "fourk-gulp",
   "description": "A collection of useful gulp tasks.",
-  "version": "0.0.1",
+  "version": "1.0.0",
   "dependencies": {
     "breakpoint-sass": "^2.7.0",
     "browser-sync": "^2.11.0",
