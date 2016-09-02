@@ -1,18 +1,8 @@
 {
-  "name": "fourk",
-  "description": "The source repository to the [SITENAME] site.",
+  "name": "fourk-gulp",
+  "description": "A collection of useful gulp tasks.",
   "version": "0.0.1",
-  "private": true,
-  "repository": {
-    "type": "git",
-    "url": "git@github.com:[SITENAME].git"
-  },
-  "scripts": {
-    "aquifer": "aquifer",
-    "start": "gulp clean && gulp compile && gulp theme",
-    "postinstall": "gulp build && find node_modules/ -name \"*.info\" -type f -delete"
-  },
-  "devDependencies": {
+  "dependencies": {
     "breakpoint-sass": "^2.7.0",
     "browser-sync": "^2.11.0",
     "del": "^2.2.0",
@@ -45,11 +35,7 @@
     "node-notifier": "^4.6.0",
     "psi": "^2.0.4",
     "sassdoc": "^2.1.20",
-    "singularitygs": "^1.7.0",
     "sync-exec": "~0.5.0",
     "webpagetest": "^0.3.4"
-  },
-  "dependencies": {
-    "aquifer": "aquifer/aquifer#1.0.0-nyun-2"
   }
 }

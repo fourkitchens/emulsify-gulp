@@ -1,11 +1,10 @@
 /* globals require */
 
-(function () {
-
+module.exports = function(gulp, config) {
   'use strict';
 
   // General
-  var gulp = require('gulp-help')(require('gulp'));
+  var gulp = require('gulp-help')(gulp);
   var _ = require('lodash');
   var concat = require('gulp-concat');
   var browserSync = require('browser-sync').create();
@@ -16,15 +15,6 @@
 
   // icons
   var svgSprite = require('gulp-svg-sprite');
-
-  var localConfig = {};
-
-  try {
-    localConfig = require('./local.gulp-config');
-  }
-  catch (e) {
-    config = _.defaultsDeep(localConfig, config);
-  }
 
   var tasks = {
     compile: [],
@@ -118,4 +108,4 @@
    */
   gulp.task('build', ['imagemin', 'clean', 'scripts', 'styleguide-scripts', 'css', 'icons']);
 
-})();
+};
