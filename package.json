@@ -6,7 +6,6 @@
     "breakpoint-sass": "^2.7.0",
     "browser-sync": "^2.11.0",
     "del": "^2.2.0",
-    "drupal-sass-breakpoints": "amazingrando/drupal-sass-breakpoints",
     "glob": "^7.0.3",
     "gulp": "^3.9.1",
     "gulp-autoprefixer": "^3.1.0",
