@@ -1,3 +1,6 @@
+[![Four Kitchens](https://img.shields.io/badge/4K-Four%20Kitchens-35AA4E.svg)](https://fourkitchens.com/)
+[![dependencies Status](https://david-dm.org/fourkitchens/fourk-gulp/status.svg)](https://david-dm.org/fourkitchens/fourk-gulp)
+
 # Fourk gulp
 A collection of useful gulp tasks.
 
