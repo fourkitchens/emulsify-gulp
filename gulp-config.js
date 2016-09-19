@@ -76,7 +76,7 @@
           render: {
             scss: {
               dest: '../source/_patterns/01-atoms/04-images/icons/_icon_sprite.scss',
-              template: 'gulp-tasks/svg-icons/sprite.scss.handlebars'
+              template: 'node_modules/fourk-gulp/gulp-tasks/svg-icons/sprite.scss.handlebars'
             }
           }
         }
