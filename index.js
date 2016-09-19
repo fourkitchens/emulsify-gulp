@@ -8,7 +8,9 @@ module.exports = function(gulp, config) {
   var _ = require('lodash');
   var concat = require('gulp-concat');
   var browserSync = require('browser-sync').create();
-  var config = require('./gulp-config');
+  var defaultConfig = require('./gulp-config');
+  var config = _.defaultsDeep(defaultConfig, config);
+  
 
   // Image Minification
   var imagemin = require('gulp-imagemin');
