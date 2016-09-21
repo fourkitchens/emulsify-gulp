@@ -3,14 +3,11 @@
 (function () {
   'use strict';
 
-  var themeDir = 'themes/contrib/fourk';
+  var themeDir = './';
   var paths = {
-    js: themeDir + '/source/_patterns/00-base/global/*.js',
-    styleguide_js: [
-      themeDir + '/js/**/*.js',
-      themeDir + '/source/_patterns/**/*.js'
-    ],
-    dist_js: themeDir + '/dist',
+    js: themeDir + '/components/_patterns/00-base/global/*.js',
+    styleguide_js: themeDir + '/components/_patterns/**/*.js',
+    dist: themeDir + '/dist',
     sass: themeDir,
     img: themeDir + '/images',
     dist_css: themeDir + '/dist/css',
@@ -32,7 +29,7 @@
     },
     cssConfig: {
       enabled: true,
-      src: themeDir + '/source/_patterns/**/*.scss',
+      src: themeDir + '/components/_patterns/**/*.scss',
       dest: themeDir + '/dist/',
       flattenDestOutput: true,
       lint: {
@@ -75,7 +72,7 @@
           prefix: '@mixin sprite-%s',
           render: {
             scss: {
-              dest: '../source/_patterns/01-atoms/04-images/icons/_icon_sprite.scss',
+              dest: '../components/_patterns/01-atoms/04-images/icons/_icon_sprite.scss',
               template: 'node_modules/fourk-gulp/gulp-tasks/svg-icons/sprite.scss.handlebars'
             }
           }
@@ -88,8 +85,8 @@
       watchedExtensions: (['twig', 'json', 'yaml', 'yml', 'md', 'jpg', 'jpeg', 'png']),
       scssToJson: [
         {
-          src: themeDir + '/source/_patterns/00-base/global/01-colors/_color-vars.scss',
-          dest: themeDir + '/source/_patterns/00-base/global/01-colors/colors.json',
+          src: themeDir + '/components/_patterns/00-base/global/01-colors/_color-vars.scss',
+          dest: themeDir + '/components/_patterns/00-base/global/01-colors/colors.json',
           lineStartsWith: '$',
           allowVarValues: false
         }
