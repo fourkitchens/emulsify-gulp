@@ -10,7 +10,7 @@ module.exports = function(gulp, config) {
   var browserSync = require('browser-sync').create();
   var defaultConfig = require('./gulp-config');
   var config = _.defaultsDeep(defaultConfig, config);
-  
+
 
   // Image Minification
   var imagemin = require('gulp-imagemin');
@@ -82,12 +82,24 @@ module.exports = function(gulp, config) {
    * Task for running browserSync.
    */
   gulp.task('serve', ['css', 'scripts', 'styleguide-scripts', 'watch:pl'], function () {
-    browserSync.init({
-      injectChanges: true,
-      open: false,
-      proxy: config.browserSync.domain,
-      startPath: config.browserSync.startPath
-    });
+    if (config.browserSync.domain) {
+      browserSync.init({
+        injectChanges: true,
+        open: config.browserSync.openBrowserAtStart,
+        proxy: config.browserSync.domain,
+        port: config.browserSync.port,
+        startPath: config.browserSync.startPath
+      });
+    }
+    else {
+      browserSync.init({
+        injectChanges: true,
+        server: {
+          baseDir: config.browserSync.baseDir
+        },
+        startPath: config.browserSync.startPath
+      });
+    }
     gulp.watch(config.paths.js, ['scripts']).on('change', browserSync.reload);
     gulp.watch(config.paths.styleguide_js, ['styleguide-scripts']).on('change', browserSync.reload);
     gulp.watch(config.paths.sass + '/**/*.scss', ['css']).on('change', browserSync.reload);

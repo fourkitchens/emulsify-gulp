@@ -6,8 +6,11 @@
   var themeDir = './';
   var paths = {
     js: themeDir + '/components/_patterns/00-base/global/*.js',
-    styleguide_js: themeDir + '/components/_patterns/**/*.js',
-    dist: themeDir + '/dist',
+    styleguide_js: [
+      themeDir + '/js/**/*.js',
+      themeDir + '/components/_patterns/**/*.js'
+    ],
+    dist_js: themeDir + '/dist',
     sass: themeDir,
     img: themeDir + '/images',
     dist_css: themeDir + '/dist/css',
@@ -93,9 +96,12 @@
       ]
     },
     browserSync: {
+      ui: false,
       enabled: true,
-      domain: '127.0.0.1:8888',
-      startPath: 'pattern-lab/public/index.html',
+      baseDir: './',
+      startPath: 'pattern-lab/public/',
+      openBrowserAtStart: true,
+      browser: "google chrome",
       reloadDelay: 50,
       reloadDebounce: 750
     }
