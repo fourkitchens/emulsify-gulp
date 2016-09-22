@@ -3,12 +3,12 @@
 (function () {
   'use strict';
 
-  var themeDir = 'themes/contrib/fourk';
+  var themeDir = './';
   var paths = {
-    js: themeDir + '/source/_patterns/00-base/global/*.js',
+    js: themeDir + '/components/_patterns/00-base/global/*.js',
     styleguide_js: [
       themeDir + '/js/**/*.js',
-      themeDir + '/source/_patterns/**/*.js'
+      themeDir + '/components/_patterns/**/*.js'
     ],
     dist_js: themeDir + '/dist',
     sass: themeDir,
@@ -32,7 +32,7 @@
     },
     cssConfig: {
       enabled: true,
-      src: themeDir + '/source/_patterns/**/*.scss',
+      src: themeDir + '/components/_patterns/**/*.scss',
       dest: themeDir + '/dist/',
       flattenDestOutput: true,
       lint: {
@@ -75,7 +75,7 @@
           prefix: '@mixin sprite-%s',
           render: {
             scss: {
-              dest: '../source/_patterns/01-atoms/04-images/icons/_icon_sprite.scss',
+              dest: '../components/_patterns/01-atoms/04-images/icons/_icon_sprite.scss',
               template: 'node_modules/fourk-gulp/gulp-tasks/svg-icons/sprite.scss.handlebars'
             }
           }
@@ -88,17 +88,20 @@
       watchedExtensions: (['twig', 'json', 'yaml', 'yml', 'md', 'jpg', 'jpeg', 'png']),
       scssToJson: [
         {
-          src: themeDir + '/source/_patterns/00-base/global/01-colors/_color-vars.scss',
-          dest: themeDir + '/source/_patterns/00-base/global/01-colors/colors.json',
+          src: themeDir + '/components/_patterns/00-base/global/01-colors/_color-vars.scss',
+          dest: themeDir + '/components/_patterns/00-base/global/01-colors/colors.json',
           lineStartsWith: '$',
           allowVarValues: false
         }
       ]
     },
     browserSync: {
+      ui: false,
       enabled: true,
-      domain: '127.0.0.1:8888',
-      startPath: 'pattern-lab/public/index.html',
+      baseDir: './',
+      startPath: 'pattern-lab/public/',
+      openBrowserAtStart: true,
+      browser: "google chrome",
       reloadDelay: 50,
       reloadDebounce: 750
     }
