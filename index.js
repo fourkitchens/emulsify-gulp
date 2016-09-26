@@ -6,11 +6,13 @@ module.exports = function(gulp, config) {
   // General
   var gulp = require('gulp-help')(gulp);
   var _ = require('lodash');
-  var concat = require('gulp-concat');
   var browserSync = require('browser-sync').create();
   var defaultConfig = require('./gulp-config');
   var config = _.defaultsDeep(defaultConfig, config);
 
+  // scripts
+  var concat = require('gulp-concat');
+  var uglify = require('gulp-uglify');
 
   // Image Minification
   var imagemin = require('gulp-imagemin');
@@ -39,6 +41,7 @@ module.exports = function(gulp, config) {
     return gulp.src(config.paths.js)
       // Concatenate everything within the JavaScript folder.
       .pipe(concat('scripts.js'))
+      .pipe(uglify())
       .pipe(gulp.dest(config.paths.dist_js));
   });
 

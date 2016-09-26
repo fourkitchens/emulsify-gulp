@@ -3,7 +3,6 @@
 (function () {
   'use strict';
   var exec = require('child_process').exec;
-  var notifier = require('node-notifier');
 
   function sh(cmd, exitOnError, cb) {
     var child = exec(cmd, {encoding: 'utf8'});
@@ -20,16 +19,7 @@
     child.on('close', function (code) {
       if (code > 0) {
         console.log('Error with code ' + code + ' after running: ' + cmd);
-        if (exitOnError) {
-          process.exit(code);
-        }
-        else {
-          notifier.notify({
-            title: cmd,
-            message: stdout,
-            sound: true
-          });
-        }
+        process.exit(code);
       }
       cb();
     });
