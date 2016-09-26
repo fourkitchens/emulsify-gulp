@@ -3,6 +3,7 @@
   "description": "A collection of useful gulp tasks.",
   "version": "1.0.0",
   "dependencies": {
+    "breakpoint-sass": "^2.7.0",
     "browser-sync": "^2.11.0",
     "del": "^2.2.0",
     "glob": "^7.0.3",

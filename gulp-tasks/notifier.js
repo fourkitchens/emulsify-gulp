@@ -19,7 +19,16 @@
     child.on('close', function (code) {
       if (code > 0) {
         console.log('Error with code ' + code + ' after running: ' + cmd);
-        process.exit(code);
+        if (exitOnError) {
+          process.exit(code);
+        }
+        else {
+          notifier.notify({
+            title: cmd,
+            message: stdout,
+            sound: true
+          });
+        };
       }
       cb();
     });
