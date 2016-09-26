@@ -41,6 +41,8 @@
         includePaths: require('node-normalize-scss').with(config.cssConfig.includePaths)
       }).on('error', sass.logError))
       .pipe(prefix(['last 1 version', '> 1%', 'ie 10']))
+      .pipe(sourcemaps.init())
+      .pipe(cleanCSS())
       .pipe(sourcemaps.write((config.cssConfig.sourceMapEmbed) ? null : './'))
       .pipe(gulpif(config.cssConfig.flattenDestOutput, flatten()))
       .pipe(gulp.dest(config.cssConfig.dest))
