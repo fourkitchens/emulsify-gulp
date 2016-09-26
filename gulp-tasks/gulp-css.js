@@ -15,6 +15,7 @@
   var notify = require('gulp-notify');
   var flatten = require('gulp-flatten');
   var gulpif = require('gulp-if');
+  var cleanCSS = require('gulp-clean-css');
   var sassdoc = require('sassdoc');
   var del = require('del');
 
