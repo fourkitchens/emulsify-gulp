@@ -25,9 +25,6 @@
       outputStyle: 'expanded',
       eyeglass: {
         enableImportOnce: false
-      },
-      drupalSassBreakpoints: {
-        themePath: themeDir + '/'
       }
     },
     cssConfig: {
