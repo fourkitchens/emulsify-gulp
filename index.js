@@ -90,7 +90,6 @@ module.exports = function(gulp, config) {
         injectChanges: true,
         open: config.browserSync.openBrowserAtStart,
         proxy: config.browserSync.domain,
-        port: config.browserSync.port,
         startPath: config.browserSync.startPath
       });
     }

@@ -97,6 +97,8 @@
       enabled: true,
       baseDir: './',
       startPath: 'pattern-lab/public/',
+      // Uncomment below if using a specific local url
+      // domain: 'fourk.dev',
       openBrowserAtStart: true,
       browser: "google chrome",
       reloadDelay: 50,
