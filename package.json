@@ -1,5 +1,5 @@
 {
-  "name": "fourk-gulp",
+  "name": "emulsify-gulp",
   "description": "A collection of useful gulp tasks.",
   "version": "1.0.0",
   "dependencies": {

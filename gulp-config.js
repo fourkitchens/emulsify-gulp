@@ -73,7 +73,7 @@
           render: {
             scss: {
               dest: '../components/_patterns/01-atoms/04-images/icons/_icon_sprite.scss',
-              template: 'node_modules/fourk-gulp/gulp-tasks/svg-icons/sprite.scss.handlebars'
+              template: 'node_modules/emulsify-gulp/gulp-tasks/svg-icons/sprite.scss.handlebars'
             }
           }
         }
@@ -98,7 +98,7 @@
       baseDir: './',
       startPath: 'pattern-lab/public/',
       // Uncomment below if using a specific local url
-      // domain: 'fourk.dev',
+      // domain: 'emulsify.dev',
       openBrowserAtStart: true,
       browser: "google chrome",
       reloadDelay: 50,
