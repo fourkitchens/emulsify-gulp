@@ -8,7 +8,7 @@ module.exports = function(gulp, config) {
   var _ = require('lodash');
   var browserSync = require('browser-sync').create();
   var defaultConfig = require('./gulp-config');
-  var config = _.defaultsDeep(defaultConfig, config);
+  var config = _.defaultsDeep(config, defaultConfig);
 
   // scripts
   var concat = require('gulp-concat');
