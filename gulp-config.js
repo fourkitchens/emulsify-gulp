@@ -81,7 +81,7 @@
     },
     patternLab: {
       enabled: true,
-      configFile: 'pattern-lab/config/config.yml',
+      configFile: themeDir + 'pattern-lab/config/config.yml',
       watchedExtensions: (['twig', 'json', 'yaml', 'yml', 'md', 'jpg', 'jpeg', 'png']),
       scssToJson: [
         {
@@ -96,7 +96,7 @@
       ui: false,
       enabled: true,
       baseDir: './',
-      startPath: 'pattern-lab/public/',
+      startPath: themeDir + 'pattern-lab/public/',
       // Uncomment below if using a specific local url
       // domain: 'emulsify.dev',
       openBrowserAtStart: true,
