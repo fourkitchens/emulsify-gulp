@@ -103,6 +103,13 @@
       browser: "google chrome",
       reloadDelay: 50,
       reloadDebounce: 750
+    },
+    eslint: {
+      excludePatterns: ['!**/components/_annotations/*.js']
+    },
+    wpt: {
+      // WebPageTest API key https://www.webpagetest.org/getkey.php
+      // key:
     }
   };
 })();
