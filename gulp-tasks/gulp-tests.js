@@ -4,17 +4,22 @@
 
   'use strict';
 
-  var options = require('minimist')(process.argv.slice(2));
-  var fs = require('fs');
+  var options = require('minimist')(process.argv.slice(2), {
+    alias: {
+      p: 'path',
+      e: 'exit',
+      i: 'install'
+    },
+  });
+  var fs = require('fs-extra');
   var path = require('path');
-  var execSync = require('child_process').execSync;
 
   // JS.
   var eslint = require('gulp-eslint');
 
   // PHP.
   var tap = require('gulp-tap');
-  // var execSync = require('sync-exec');
+  var execSync = require('sync-exec');
 
   // Performance Testing
   var ngrok = require('ngrok');
@@ -24,6 +29,9 @@
 
   module.exports = function (gulp, config) {
 
+    /**
+     * Run eslint.
+     */
     gulp.task('eslint', 'Check JavaScript files for coding standards issues.', function () {
       var excludePatterns = config.eslint.excludePatterns;
       var sourcePatterns = [
@@ -52,22 +60,27 @@
       }
     });
 
-    gulp.task('install-phpcs', 'Check PHP files for coding standards issues.', function () {
-      execSync('composer install -d ' + path.join(__dirname, '../'), {stdio: 'inherit'});
-    });
-
+    /**
+     * Run phpcs.
+     */
     gulp.task('phpcs', 'Check PHP files for coding standards issues.', function () {
+      // If the install option is set, install phpcs using Composer.
       if (!fs.existsSync(path.join(__dirname, '../vendor/bin/phpcs'))) {
-        if (options.hasOwnProperty('i')) {
-          execSync('gulp foo');
-          return;
+        if (options.hasOwnProperty('install')) {
+          execSync('gulp install-phpcs', {stdio: 'inherit'});
         }
         else {
-          console.log('exists');
+          console.log('The phpcs test couldn\'t find the dependencies it needs to run. Make sure you have Composer installed on your machine and rerun this command with the install option:\ngulp run phpcs -i');
           return;
         }
       }
+      else {
+        if (options.hasOwnProperty('install')) {
+          console.log('phpcs is already installed.');
+        }
+      }
 
+      console.log('Running phpcs...');
       // Source file defaults to a pattern.
       var extensions = '{php,module,inc,install,test,profile,theme}';
       var sourcePatterns = [
@@ -99,45 +112,56 @@
 
       return gulp.src(patterns)
         .pipe(tap(function (file) {
-          try {
-            execSync(path.join(__dirname, '/../vendor/bin/phpcs') + ' --config-set installed_paths ' + path.join(__dirname,'/../vendor/drupal/coder/coder_sniffer'));
-  //           var report = execSync(__dirname + '/../vendor/bin/phpcs --standard="' + path.join(__dirname, '../ruleset.xml') + '" ' + file.path);
-  // console.log(report);
-  //           if (report.length > 0) {
-  //             // Log report, and remove silly Code Sniffer 2.0 ad.
-  //             /* eslint-disable */
-  //             console.log(report.split('UPGRADE TO PHP_CODESNIFFER 2.0 TO FIX ERRORS AUTOMATICALLY')[0]);
-  //             /* eslint-enable */
-  //           }
-  //
-  //           if (report.status !== 0 && options.hasOwnProperty('exit')) {
-  //             // Exit with error code.
-  //             /* eslint-disable */
-  //             process.exit(report.status);
-  //             /* eslint-enable */
-  //           }
+          var ruleset = path.join(__dirname, '../ruleset.xml');
 
-            try {
-              execSync(__dirname + '/../vendor/bin/phpcs --standard="' + path.join(__dirname, '../ruleset.xml') + '" ' + file.path);
-            } catch (err) {
-              console.log(err.message);
-            }
-          } catch (err) {
-            console.log(err.message);
+          // Use project ruleset if provided.
+          if (fs.existsSync('./ruleset.xml')) {
+            ruleset = './ruleset.xml';
           }
 
+          execSync(path.join(__dirname, '/../vendor/bin/phpcs') + ' --config-set installed_paths ' + path.join(__dirname, '/../vendor/drupal/coder/coder_sniffer'));
+          var report = execSync(__dirname + '/../vendor/bin/phpcs --standard="' + ruleset + '" ' + file.path);
 
+          if (report.stdout.length > 0) {
+            // Log report, and remove silly Code Sniffer 2.0 ad.
+            /* eslint-disable */
+            console.log(report.stdout.split('UPGRADE TO PHP_CODESNIFFER 2.0 TO FIX ERRORS AUTOMATICALLY')[0]);
+            /* eslint-enable */
+          }
+
+          if (report.status !== 0 && options.hasOwnProperty('exit')) {
+            // Exit with error code.
+            /* eslint-disable */
+            process.exit(report.status);
+            /* eslint-enable */
+          }
 
         }));
     }, {
       options: {
         path: 'The path in which to check coding standards.',
-        exit: 'Exit with an error code if phpcs finds errors.'
+        exit: 'Exit with an error code if phpcs finds errors.',
+        install: "Installs phpcs and other dependencies using Composer prior to testing."
       }
     });
 
-    gulp.task('foo', 'Run all coding standard and style checking tools.', ['install-phpcs', 'phpcs']);
+    /**
+     * Install phpcs and dependencies using Composer.
+     */
+    gulp.task('install-phpcs', 'Install phpcs and dependencies using Composer.', function () {
+      // Run composer install inside this module.
+      execSync('composer install -d ' + path.join(__dirname, '../'), {stdio: 'inherit'});
 
+      // The composer install will download Drupal core, which we don't actually
+      // need. Remove it.
+      if (fs.existsSync(path.join(__dirname, '/../vendor/drupal/core'))) {
+        fs.removeSync(path.join(__dirname, '/../vendor/drupal/core'));
+      }
+    });
+
+    /**
+     * Run all linting tests.
+     */
     gulp.task('lint', 'Run all coding standard and style checking tools.', ['eslint', 'phpcs']);
 
     // -----------------------------------------------------------------------------
