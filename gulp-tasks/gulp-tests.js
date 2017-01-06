@@ -6,13 +6,15 @@
 
   var options = require('minimist')(process.argv.slice(2));
   var fs = require('fs');
+  var path = require('path');
+  var execSync = require('child_process').execSync;
 
   // JS.
   var eslint = require('gulp-eslint');
 
   // PHP.
   var tap = require('gulp-tap');
-  var execSync = require('sync-exec');
+  // var execSync = require('sync-exec');
 
   // Performance Testing
   var ngrok = require('ngrok');
@@ -50,7 +52,22 @@
       }
     });
 
+    gulp.task('install-phpcs', 'Check PHP files for coding standards issues.', function () {
+      execSync('composer install -d ' + path.join(__dirname, '../'), {stdio: 'inherit'});
+    });
+
     gulp.task('phpcs', 'Check PHP files for coding standards issues.', function () {
+      if (!fs.existsSync(path.join(__dirname, '../vendor/bin/phpcs'))) {
+        if (options.hasOwnProperty('i')) {
+          execSync('gulp foo');
+          return;
+        }
+        else {
+          console.log('exists');
+          return;
+        }
+      }
+
       // Source file defaults to a pattern.
       var extensions = '{php,module,inc,install,test,profile,theme}';
       var sourcePatterns = [
@@ -82,21 +99,35 @@
 
       return gulp.src(patterns)
         .pipe(tap(function (file) {
-          execSync(__dirname + '/../vendor/bin/phpcs --config-set installed_paths ' + __dirname + '/../vendor/drupal/coder/coder_sniffer');
-          var report = execSync(__dirname + '/../vendor/bin/phpcs --standard="./ruleset.xml" ' + file.path);
-          if (report.stdout.length > 0) {
-            // Log report, and remove silly Code Sniffer 2.0 ad.
-            /* eslint-disable */
-            console.log(report.stdout.split('UPGRADE TO PHP_CODESNIFFER 2.0 TO FIX ERRORS AUTOMATICALLY')[0]);
-            /* eslint-enable */
+          try {
+            execSync(path.join(__dirname, '/../vendor/bin/phpcs') + ' --config-set installed_paths ' + path.join(__dirname,'/../vendor/drupal/coder/coder_sniffer'));
+  //           var report = execSync(__dirname + '/../vendor/bin/phpcs --standard="' + path.join(__dirname, '../ruleset.xml') + '" ' + file.path);
+  // console.log(report);
+  //           if (report.length > 0) {
+  //             // Log report, and remove silly Code Sniffer 2.0 ad.
+  //             /* eslint-disable */
+  //             console.log(report.split('UPGRADE TO PHP_CODESNIFFER 2.0 TO FIX ERRORS AUTOMATICALLY')[0]);
+  //             /* eslint-enable */
+  //           }
+  //
+  //           if (report.status !== 0 && options.hasOwnProperty('exit')) {
+  //             // Exit with error code.
+  //             /* eslint-disable */
+  //             process.exit(report.status);
+  //             /* eslint-enable */
+  //           }
+
+            try {
+              execSync(__dirname + '/../vendor/bin/phpcs --standard="' + path.join(__dirname, '../ruleset.xml') + '" ' + file.path);
+            } catch (err) {
+              console.log(err.message);
+            }
+          } catch (err) {
+            console.log(err.message);
           }
 
-          if (report.status !== 0 && options.hasOwnProperty('exit')) {
-            // Exit with error code.
-            /* eslint-disable */
-            process.exit(report.status);
-            /* eslint-enable */
-          }
+
+
         }));
     }, {
       options: {
@@ -104,6 +135,8 @@
         exit: 'Exit with an error code if phpcs finds errors.'
       }
     });
+
+    gulp.task('foo', 'Run all coding standard and style checking tools.', ['install-phpcs', 'phpcs']);
 
     gulp.task('lint', 'Run all coding standard and style checking tools.', ['eslint', 'phpcs']);
 
