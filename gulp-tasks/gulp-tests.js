@@ -70,7 +70,7 @@
           execSync('gulp install-phpcs', {stdio: 'inherit'});
         }
         else {
-          console.log('The phpcs test couldn\'t find the dependencies it needs to run. Make sure you have Composer installed on your machine and rerun this command with the install option:\ngulp run phpcs -i');
+          console.log('The phpcs test couldn\'t find the dependencies it needs to run. Make sure you have Composer installed on your machine and rerun this command with the install option:\ngulp phpcs -i');
           return;
         }
       }
