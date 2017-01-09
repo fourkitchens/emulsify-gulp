@@ -1,0 +1,42 @@
+{
+  "name": "fourkitchens/emulsify-gulp",
+  "description": "A collection of useful gulp tasks.",
+  "type": "project",
+  "license": "GPL-2.0+",
+  "authors": [
+    {
+      "name": "Evan Willhite",
+      "role": "Front End Engineer",
+      "email": "evan@fourkitchens.com"
+    },
+    {
+      "name": "Luke Herrington",
+      "role": "Front End Engineer",
+      "email": "luke@fourkitchens.com"
+    }
+  ],
+  "repositories": [
+    {
+      "type": "composer",
+      "url": "https://packages.drupal.org/8"
+    }
+  ],
+  "require": {},
+  "require-dev": {
+    "drupal/coder": "2.7",
+    "squizlabs/PHP_CodeSniffer": "~2.0"
+  },
+  "conflict": {},
+  "minimum-stability": "dev",
+  "prefer-stable": true,
+  "autoload": {},
+  "scripts": {},
+  "config": {
+    "sort-packages": "true"
+  },
+  "extra": {
+    "installer-paths": {
+      "vendor/drupal/{$name}": ["type:drupal-core", "type:drupal-module"]
+    }
+  }
+}

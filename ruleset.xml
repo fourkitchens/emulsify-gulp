@@ -1,0 +1,19 @@
+<?xml version="1.0"?>
+<ruleset name="drupal">
+    <description>A ruleset for Drupal coding standards.</description>
+    <!-- Include the whole Drupal standard -->
+    <rule ref="node_modules/emulsify-gulp/vendor/drupal/coder/coder_sniffer">
+        <!-- Exclude the variable naming conventions sniff so we can use camel case if we want to. -->
+        <exclude name="Drupal.NamingConventions.ValidVariableName"/>
+        <!-- Exclude class and method naming conventions so we can use contrib module conventions. -->
+        <exclude name="Drupal.NamingConventions.ValidClassName"/>
+        <exclude name="Drupal.NamingConventions.ValidFunctionName.ScopeNotLowerCamel"/>
+    </rule>
+    <rule ref="DrupalPractice.CodeAnalysis.VariableAnalysis">
+        <properties>
+            <property name="allowUnusedFunctionParameters" value="true" />
+            <property name="allowUnusedCaughtExceptions" value="true" />
+        </properties>
+    </rule>
+    <exclude-pattern type="relative">./drush/**/*</exclude-pattern>
+</ruleset>
