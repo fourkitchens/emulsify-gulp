@@ -14,7 +14,8 @@
     sass: themeDir,
     img: themeDir + '/images',
     dist_css: themeDir + '/dist/css',
-    dist_img: themeDir + '/dist/img'
+    dist_img: themeDir + '/dist/img',
+    pattern_lab: themeDir + '/pattern-lab/public'
   };
 
   module.exports = {

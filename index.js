@@ -20,6 +20,9 @@ module.exports = function(gulp, config) {
   // icons
   var svgSprite = require('gulp-svg-sprite');
 
+  // deploy
+  var ghPages = require('gulp-gh-pages');
+
   var tasks = {
     compile: [],
     watch: [],
@@ -123,5 +126,16 @@ module.exports = function(gulp, config) {
    * Theme task declaration
    */
   gulp.task('build', ['imagemin', 'clean', 'scripts', 'styleguide-scripts', 'css', 'icons']);
+
+  /**
+   * Deploy
+   */
+  gulp.task('deploy', function () {
+    return gulp.src([
+      config.paths.dist_js + '/**/*',
+      config.paths.pattern_lab + '/**/*'
+    ], { base: config.themeDir } )
+    .pipe(ghPages());
+  });
 
 };
