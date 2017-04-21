@@ -13,6 +13,8 @@
     dist_js: themeDir + '/dist',
     sass: themeDir,
     img: themeDir + '/images',
+    fonts: themeDir + '/fonts',
+    dist_fonts: themeDir + '/dist/fonts',
     dist_css: themeDir + '/dist/css',
     dist_img: themeDir + '/dist/img',
     pattern_lab: themeDir + '/pattern-lab/public'
