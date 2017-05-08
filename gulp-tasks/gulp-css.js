@@ -8,7 +8,8 @@
   var sass = require('gulp-sass');
   var sassGlob = require('gulp-sass-glob');
   var sourcemaps = require('gulp-sourcemaps');
-  var sassLint = require('gulp-sass-lint');
+  // var sassLint = require('gulp-sass-lint');
+  var stylelint = require('gulp-stylelint')
   var prefix = require('gulp-autoprefixer');
   var cached = require('gulp-cached');
   var plumber = require('gulp-plumber');
@@ -69,9 +70,14 @@
       }
       return gulp.src(src)
       .pipe(cached('validate:css'))
-      .pipe(sassLint())
-      .pipe(sassLint.format())
-      .pipe(gulpif(config.cssConfig.lint.failOnError, sassLint.failOnError()));
+      .pipe(stylelint({
+        reporters: [{
+          formatter: 'string', console: true
+        }]
+      })
+      // .pipe(sassLint())
+      // .pipe(sassLint.format())
+      // .pipe(gulpif(config.cssConfig.lint.failOnError, sassLint.failOnError()));
     });
 
     gulp.task('docs:css', 'Build CSS docs using SassDoc', function () {
