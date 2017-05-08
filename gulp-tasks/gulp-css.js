@@ -74,7 +74,7 @@
         reporters: [{
           formatter: 'string', console: true
         }]
-      })
+      }))
       // .pipe(sassLint())
       // .pipe(sassLint.format())
       // .pipe(gulpif(config.cssConfig.lint.failOnError, sassLint.failOnError()));
