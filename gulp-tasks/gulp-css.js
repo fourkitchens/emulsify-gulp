@@ -8,7 +8,6 @@
   var sass = require('gulp-sass');
   var sassGlob = require('gulp-sass-glob');
   var sourcemaps = require('gulp-sourcemaps');
-  // var sassLint = require('gulp-sass-lint');
   var stylelint = require('gulp-stylelint')
   var prefix = require('gulp-autoprefixer');
   var cached = require('gulp-cached');
@@ -25,14 +24,10 @@
     function cssCompile(done) {
       gulp.src(config.cssConfig.src)
       .pipe(sassGlob())
-      .pipe(plumber({
-        errorHandler: function (error) {
-          notify.onError({
-            title: 'CSS <%= error.name %> - Line <%= error.line %>',
-            message: '<%= error.message %>'
-          })(error);
-          this.emit('end');
-        }
+      .pipe(stylelint({
+        reporters: [{
+          formatter: 'string', console: true
+        }]
       }))
       .pipe(sourcemaps.init({
         debug: config.debug
@@ -75,9 +70,6 @@
           formatter: 'string', console: true
         }]
       }))
-      // .pipe(sassLint())
-      // .pipe(sassLint.format())
-      // .pipe(gulpif(config.cssConfig.lint.failOnError, sassLint.failOnError()));
     });
 
     gulp.task('docs:css', 'Build CSS docs using SassDoc', function () {
