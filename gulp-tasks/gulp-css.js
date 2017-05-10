@@ -25,6 +25,7 @@
       gulp.src(config.cssConfig.src)
       .pipe(sassGlob())
       .pipe(stylelint({
+        failAfterError: false,
         reporters: [{
           formatter: 'string', console: true
         }]
