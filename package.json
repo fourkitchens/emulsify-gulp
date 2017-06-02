@@ -33,7 +33,7 @@
     "node-notifier": "^4.6.0",
     "psi": "^2.0.4",
     "sassdoc": "2.2.0 || ^2.2.2",
-    "singularitygs": "^1.7.0",
+    "singularitygs": "^1.8.0",
     "webpagetest": "^0.3.4"
   }
 }
