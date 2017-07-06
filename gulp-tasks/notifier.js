@@ -3,6 +3,7 @@
 (function () {
   'use strict';
   var exec = require('child_process').exec;
+  var notifier = require('node-notifier');
 
   function sh(cmd, exitOnError, cb) {
     var child = exec(cmd, {encoding: 'utf8'});
