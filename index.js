@@ -76,7 +76,7 @@ module.exports = function(gulp, config) {
   gulp.task('icons', function () {
     return gulp.src('**/*.svg', {cwd: config.paths.img + '/icons/src'})
       .pipe(svgSprite(config.iconConfig))
-      .pipe(gulp.dest(config.themeDir + '/images/icons'));
+      .pipe(gulp.dest('./'));
   });
 
   tasks.compile.push('icons');
