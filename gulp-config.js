@@ -44,17 +44,7 @@
         'last 2 versions',
         '- IE >= 9'
       ],
-      includePaths: (['./node_modules']),
-      sassdoc: {
-        enabled: true,
-        dest: themeDir + '/dist/sassdoc',
-        verbose: false,
-        sort: [
-          'file',
-          'group',
-          'line'
-        ]
-      }
+      includePaths: (['./node_modules'])
     },
     iconConfig: {
       shape: {
