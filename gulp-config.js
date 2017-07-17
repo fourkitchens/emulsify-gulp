@@ -41,8 +41,7 @@
       sourceMapEmbed: false,
       outputStyle: 'expanded',
       autoPrefixerBrowsers: [
-        'last 2 versions',
-        '- IE >= 9'
+        'last 1 version', '> 1%', 'ie 10'
       ],
       includePaths: (['./node_modules']),
       sassdoc: {
