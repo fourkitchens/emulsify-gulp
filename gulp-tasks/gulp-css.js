@@ -16,7 +16,6 @@
   var flatten = require('gulp-flatten');
   var gulpif = require('gulp-if');
   var cleanCSS = require('gulp-clean-css');
-  var sassdoc = require('sassdoc');
   var del = require('del');
 
   module.exports = function (gulp, config, tasks, browserSync) {
@@ -73,33 +72,10 @@
       }))
     });
 
-    gulp.task('docs:css', 'Build CSS docs using SassDoc', function () {
-      return gulp.src(config.cssConfig.src)
-      .pipe(sassdoc({
-        dest: config.cssConfig.sassdoc.dest,
-        verbose: config.cssConfig.sassdoc.verbose,
-        basePath: config.cssConfig.sassdoc.basePath,
-        exclude: config.cssConfig.sassdoc.exclude,
-        theme: config.cssConfig.sassdoc.theme,
-        sort: config.cssConfig.sassdoc.sort
-      }));
-    });
-
-    gulp.task('clean:docs:css', 'Delete compiled CSS docs', function (done) {
-      del([
-        config.cssConfig.sassdoc.dest
-      ]).then(function () {
-        done();
-      });
-    });
-
     gulp.task('watch:css', function () {
       var tasks = ['css'];
       if (config.cssConfig.lint.enabled) {
         tasks.push('validate:css');
-      }
-      if (config.cssConfig.sassdoc.enabled) {
-        tasks.push('docs:css');
       }
       return gulp.watch(config.cssConfig.src, tasks);
     });
@@ -112,11 +88,6 @@
 
     if (config.cssConfig.lint.enabled) {
       tasks.validate.push('validate:css');
-    }
-
-    if (config.cssConfig.sassdoc.enabled) {
-      tasks.compile.push('docs:css');
-      tasks.clean.push('clean:docs:css');
     }
 
     tasks.clean.push('clean:css');
