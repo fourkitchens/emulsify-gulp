@@ -107,7 +107,7 @@ module.exports = function(gulp, config) {
     }
     gulp.watch(config.paths.js, ['scripts']).on('change', browserSync.reload);
     gulp.watch(config.paths.styleguide_js, ['styleguide-scripts']).on('change', browserSync.reload);
-    gulp.watch(config.paths.sass + '/**/*.scss', ['css']).on('change', browserSync.reload);
+    gulp.watch(config.paths.sass + '/**/*.scss', ['css']);
   });
 
   /**
