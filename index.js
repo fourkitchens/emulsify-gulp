@@ -1,29 +1,29 @@
 /* globals require */
 
-module.exports = function(gulp, config) {
+module.exports = (gulp, config) => {
   'use strict';
 
   // General
   var gulp = require('gulp-help')(gulp);
-  var _ = require('lodash');
-  var browserSync = require('browser-sync').create();
-  var defaultConfig = require('./gulp-config');
+  const _ = require('lodash');
+  const browserSync = require('browser-sync').create();
+  const defaultConfig = require('./gulp-config');
   var config = _.defaultsDeep(config, defaultConfig);
 
   // scripts
-  var concat = require('gulp-concat');
-  var uglify = require('gulp-uglify');
+  const concat = require('gulp-concat');
+  const uglify = require('gulp-uglify');
 
   // Image Minification
-  var imagemin = require('gulp-imagemin');
+  const imagemin = require('gulp-imagemin');
 
   // icons
-  var svgSprite = require('gulp-svg-sprite');
+  const svgSprite = require('gulp-svg-sprite');
 
   // deploy
-  var ghPages = require('gulp-gh-pages');
+  const ghPages = require('gulp-gh-pages');
 
-  var tasks = {
+  const tasks = {
     compile: [],
     watch: [],
     validate: [],
@@ -40,7 +40,7 @@ module.exports = function(gulp, config) {
   /**
    * Script Task
    */
-  gulp.task('scripts', function () {
+  gulp.task('scripts', () => {
     return gulp.src(config.paths.js)
       // Concatenate everything within the JavaScript folder.
       .pipe(concat('scripts.js'))
@@ -48,7 +48,7 @@ module.exports = function(gulp, config) {
       .pipe(gulp.dest(config.paths.dist_js));
   });
 
-  gulp.task('styleguide-scripts', function () {
+  gulp.task('styleguide-scripts', () => {
     return gulp.src(config.paths.styleguide_js)
       // Concatenate everything within the JavaScript folder.
       .pipe(concat('scripts-styleguide.js'))
@@ -58,7 +58,7 @@ module.exports = function(gulp, config) {
   /**
    * Task for minifying images.
    */
-  gulp.task('imagemin', function () {
+  gulp.task('imagemin', () => {
     return gulp.src(config.paths.img + '/**/*')
       .pipe(imagemin({
         progressive: true,
@@ -73,7 +73,7 @@ module.exports = function(gulp, config) {
   /**
    * Task for generating icon colors/png fallbacks from svg.
    */
-  gulp.task('icons', function () {
+  gulp.task('icons', () => {
     return gulp.src('**/*.svg', {cwd: config.paths.img + '/icons/src'})
       .pipe(svgSprite(config.iconConfig))
       .pipe(gulp.dest(config.themeDir + '/images/icons'));
@@ -87,7 +87,7 @@ module.exports = function(gulp, config) {
   /**
    * Task for running browserSync.
    */
-  gulp.task('serve', ['css', 'scripts', 'styleguide-scripts', 'watch:pl'], function () {
+  gulp.task('serve', ['css', 'scripts', 'styleguide-scripts', 'watch:pl'], () => {
     if (config.browserSync.domain) {
       browserSync.init({
         injectChanges: true,
@@ -130,7 +130,7 @@ module.exports = function(gulp, config) {
   /**
    * Deploy
    */
-  gulp.task('deploy', function () {
+  gulp.task('deploy', () => {
     return gulp.src([
       config.paths.dist_js + '/**/*',
       config.paths.pattern_lab + '/**/*'

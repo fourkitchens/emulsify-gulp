@@ -3,8 +3,8 @@
 (function () {
   'use strict';
 
-  var themeDir = './';
-  var paths = {
+  const themeDir = './';
+  const paths = {
     js: themeDir + '/components/_patterns/00-base/global/*.js',
     styleguide_js: [
       themeDir + '/js/**/*.js',

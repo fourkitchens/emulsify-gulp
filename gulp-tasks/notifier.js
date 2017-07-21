@@ -2,22 +2,22 @@
 
 (function () {
   'use strict';
-  var exec = require('child_process').exec;
-  var notifier = require('node-notifier');
+  const exec = require('child_process').exec;
+  const notifier = require('node-notifier');
 
   function sh(cmd, exitOnError, cb) {
-    var child = exec(cmd, {encoding: 'utf8'});
-    var stdout = '';
-    var stderr = '';
-    child.stdout.on('data', function (data) {
+    const child = exec(cmd, {encoding: 'utf8'});
+    let stdout = '';
+    let stderr = '';
+    child.stdout.on('data', (data) => {
       stdout += data;
       process.stdout.write(data);
     });
-    child.stderr.on('data', function (data) {
+    child.stderr.on('data', (data) => {
       stderr += data;
       process.stdout.write(data);
     });
-    child.on('close', function (code) {
+    child.on('close', (code) => {
       if (code > 0) {
         console.log('Error with code ' + code + ' after running: ' + cmd);
         if (exitOnError) {

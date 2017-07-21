@@ -5,20 +5,20 @@
   'use strict';
 
   // SCSS/CSS
-  var sass = require('gulp-sass');
-  var sassGlob = require('gulp-sass-glob');
-  var sourcemaps = require('gulp-sourcemaps');
-  var stylelint = require('gulp-stylelint')
-  var prefix = require('gulp-autoprefixer');
-  var cached = require('gulp-cached');
-  var plumber = require('gulp-plumber');
-  var notify = require('gulp-notify');
-  var flatten = require('gulp-flatten');
-  var gulpif = require('gulp-if');
-  var cleanCSS = require('gulp-clean-css');
-  var del = require('del');
+  const sass = require('gulp-sass');
+  const sassGlob = require('gulp-sass-glob');
+  const sourcemaps = require('gulp-sourcemaps');
+  const stylelint = require('gulp-stylelint')
+  const prefix = require('gulp-autoprefixer');
+  const cached = require('gulp-cached');
+  const plumber = require('gulp-plumber');
+  const notify = require('gulp-notify');
+  const flatten = require('gulp-flatten');
+  const gulpif = require('gulp-if');
+  const cleanCSS = require('gulp-clean-css');
+  const del = require('del');
 
-  module.exports = function (gulp, config, tasks, browserSync) {
+  module.exports = (gulp, config, tasks, browserSync) => {
 
     function cssCompile(done) {
       gulp.src(config.cssConfig.src)
@@ -51,7 +51,7 @@
 
     gulp.task('css', 'Compile Scss to CSS using Libsass with Autoprefixer and SourceMaps', cssCompile);
 
-    gulp.task('clean:css', 'Delete compiled CSS files', function (done) {
+    gulp.task('clean:css', 'Delete compiled CSS files', (done) => {
       del([
         config.cssConfig.dest + '*.{css,css.map}'
       ]).then(function () {
@@ -59,7 +59,7 @@
       });
     });
 
-    gulp.task('validate:css', 'Lint Scss files', function () {
+    gulp.task('validate:css', 'Lint Scss files', () => {
       var src = config.cssConfig.src;
       if (config.cssConfig.lint.extraSrc) {
         src = src.concat(config.cssConfig.lint.extraSrc);
@@ -73,7 +73,7 @@
       }))
     });
 
-    gulp.task('watch:css', function () {
+    gulp.task('watch:css', () => {
       var tasks = ['css'];
       if (config.cssConfig.lint.enabled) {
         tasks.push('validate:css');
