@@ -44,6 +44,7 @@
       .pipe(gulpif(config.cssConfig.flattenDestOutput, flatten()))
       .pipe(gulp.dest(config.cssConfig.dest))
       .on('end', function () {
+        browserSync.reload('*.css');
         done();
       });
     }
