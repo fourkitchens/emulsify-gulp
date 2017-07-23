@@ -20,8 +20,8 @@
 
   module.exports = {
     host: 'http://127.0.0.1:8888/',
-    themeDir: themeDir,
-    paths: paths,
+    themeDir,
+    paths,
     sassOptions: {
       outputStyle: 'expanded',
       eyeglass: {
