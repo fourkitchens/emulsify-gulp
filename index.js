@@ -1,6 +1,6 @@
 /* globals require */
 
-export default (gulp, config) => {
+module.exports = (gulp, config) => {
   'use strict';
 
   // General
