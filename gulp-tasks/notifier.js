@@ -1,6 +1,6 @@
 /* globals require, process */
 
-(function () {
+((() => {
   'use strict';
   const exec = require('child_process').exec;
   const notifier = require('node-notifier');
@@ -39,4 +39,4 @@
     sh: sh
   };
 
-})();
+}))();

@@ -1,6 +1,6 @@
 /* globals require, process, __dirname */
 
-(function () {
+((() => {
 
   'use strict';
 
@@ -26,7 +26,7 @@
     // -----------------------------------------------------------------------------
     gulp.task('psi', 'Performance: PageSpeed Insights', () => {
       // Set up a public tunnel so PageSpeed can see the local site.
-      return ngrok.connect(4000, function (err_ngrok, url) {
+      return ngrok.connect(4000, (err_ngrok, url) => {
         console.log('ngrok - serving your site from ' + url);
 
         // Run PageSpeed once the tunnel is up.
@@ -87,4 +87,4 @@
 
   };
 
-})();
+}))();

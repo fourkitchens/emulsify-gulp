@@ -1,6 +1,6 @@
 /* globals require */
 
-(function () {
+((() => {
 
   'use strict';
 
@@ -43,7 +43,7 @@
       .pipe(sourcemaps.write((config.cssConfig.sourceMapEmbed) ? null : './'))
       .pipe(gulpif(config.cssConfig.flattenDestOutput, flatten()))
       .pipe(gulp.dest(config.cssConfig.dest))
-      .on('end', function () {
+      .on('end', () => {
         browserSync.reload('*.css');
         done();
       });
@@ -54,7 +54,7 @@
     gulp.task('clean:css', 'Delete compiled CSS files', (done) => {
       del([
         config.cssConfig.dest + '*.{css,css.map}'
-      ]).then(function () {
+      ]).then(() => {
         done();
       });
     });
@@ -95,4 +95,4 @@
 
   };
 
-})();
+}))();

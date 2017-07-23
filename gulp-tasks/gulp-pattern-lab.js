@@ -1,6 +1,6 @@
 /* globals require, process */
 
-(function () {
+((() => {
 
   'use strict';
 
@@ -14,7 +14,7 @@
   const yaml = require('js-yaml');
   const fs = require('fs');
 
-  module.exports = function (gulp, config, tasks) {
+  module.exports = (gulp, config, tasks) => {
 
     const plConfig = yaml.safeLoad(
       fs.readFileSync(config.patternLab.configFile, 'utf8')
@@ -26,7 +26,7 @@
     const consolePath = path.join(plRoot, 'core/console');
 
     function plBuild(cb) {
-      notifier.sh('php ' + consolePath + ' ' + '--generate', true, function () {
+      notifier.sh('php ' + consolePath + ' ' + '--generate', true, () => {
         if (config.browserSync.enabled) {
           browserSync.reload;
         }
@@ -37,11 +37,11 @@
     gulp.task('pl', 'Compile Pattern Lab', plBuild);
 
     const watchedExtensions = config.patternLab.watchedExtensions.join(',');
-    gulp.task('watch:pl', function () {
+    gulp.task('watch:pl', () => {
       const plGlob = path.normalize(plSource + '/**/*.{' + watchedExtensions + '}');
-      gulp.watch(plGlob, function (event) {
+      gulp.watch(plGlob, event => {
         console.log('File ' + path.relative(process.cwd(), event.path) + ' was ' + event.type + ', running tasks...');
-        notifier.sh('php ' + consolePath + ' ' + '--generate', false, function () {
+        notifier.sh('php ' + consolePath + ' ' + '--generate', false, () => {
           if (config.browserSync.enabled) {
             browserSync.reload;
           }
@@ -53,13 +53,11 @@
 
     if (config.patternLab.scssToJson) {
       // turns scss files full of variables into json files that PL can iterate on
-      gulp.task('pl:scss-to-json', function (done) {
-        config.patternLab.scssToJson.forEach(function (pair) {
-          let scssVarList = _.filter(fs.readFileSync(pair.src, 'utf8').split('\n'), function (item) {
-            return _.startsWith(item, pair.lineStartsWith);
-          });
+      gulp.task('pl:scss-to-json', done => {
+        config.patternLab.scssToJson.forEach(pair => {
+          let scssVarList = _.filter(fs.readFileSync(pair.src, 'utf8').split('\n'), item => _.startsWith(item, pair.lineStartsWith));
           // console.log(scssVarList, item.src);
-          let varsAndValues = _.map(scssVarList, function (item) {
+          let varsAndValues = _.map(scssVarList, item => {
             let x = item.split(':');
             return {
               name: x[0].trim(), // i.e. $color-gray
@@ -68,9 +66,7 @@
           });
 
           if (!pair.allowVarValues) {
-            varsAndValues = _.filter(varsAndValues, function (item) {
-              return !_.startsWith(item.value, '$');
-            });
+            varsAndValues = _.filter(varsAndValues, item => !_.startsWith(item.value, '$'));
           }
 
           fs.writeFileSync(pair.dest, JSON.stringify({
@@ -85,8 +81,8 @@
       });
       plFullDependencies.push('pl:scss-to-json');
 
-      gulp.task('watch:pl:scss-to-json', function () {
-        const files = config.patternLab.scssToJson.map(function (file) {return file.src;});
+      gulp.task('watch:pl:scss-to-json', () => {
+        const files = config.patternLab.scssToJson.map(file => file.src);
         gulp.watch(files, ['pl:scss-to-json']);
       });
       tasks.watch.push('watch:pl:scss-to-json');
@@ -99,4 +95,4 @@
 
   };
 
-})();
+}))();

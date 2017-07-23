@@ -1,6 +1,6 @@
 /* globals module */
 
-(function () {
+((() => {
   'use strict';
 
   const themeDir = './';
@@ -100,4 +100,4 @@
       // key:
     }
   };
-})();
+}))();
