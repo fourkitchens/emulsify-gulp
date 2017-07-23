@@ -53,7 +53,7 @@
 
     gulp.task('clean:css', 'Delete compiled CSS files', (done) => {
       del([
-        config.cssConfig.dest + '*.{css,css.map}'
+        `${config.cssConfig.dest}*.{css,css.map}`
       ]).then(() => {
         done();
       });

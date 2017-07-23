@@ -5,17 +5,17 @@
 
   const themeDir = './';
   const paths = {
-    js: themeDir + '/components/_patterns/00-base/global/*.js',
+    js: `${themeDir}/components/_patterns/00-base/global/*.js`,
     styleguide_js: [
-      themeDir + '/js/**/*.js',
-      themeDir + '/components/_patterns/**/*.js'
+      `${themeDir}/js/**/*.js`,
+      `${themeDir}/components/_patterns/**/*.js`
     ],
-    dist_js: themeDir + '/dist',
+    dist_js: `${themeDir}/dist`,
     sass: themeDir,
-    img: themeDir + '/images',
-    dist_css: themeDir + '/dist/css',
-    dist_img: themeDir + '/dist/img',
-    pattern_lab: themeDir + '/pattern-lab/public'
+    img: `${themeDir}/images`,
+    dist_css: `${themeDir}/dist/css`,
+    dist_img: `${themeDir}/dist/img`,
+    pattern_lab: `${themeDir}/pattern-lab/public`
   };
 
   module.exports = {
@@ -30,8 +30,8 @@
     },
     cssConfig: {
       enabled: true,
-      src: themeDir + '/components/_patterns/**/*.scss',
-      dest: themeDir + '/dist/',
+      src: `${themeDir}/components/_patterns/**/*.scss`,
+      dest: `${themeDir}/dist/`,
       flattenDestOutput: true,
       lint: {
         enabled: false,
@@ -72,12 +72,12 @@
     },
     patternLab: {
       enabled: true,
-      configFile: themeDir + 'pattern-lab/config/config.yml',
+      configFile: `${themeDir}pattern-lab/config/config.yml`,
       watchedExtensions: (['twig', 'json', 'yaml', 'yml', 'md', 'jpg', 'jpeg', 'png']),
       scssToJson: [
         {
-          src: themeDir + '/components/_patterns/00-base/global/01-colors/_color-vars.scss',
-          dest: themeDir + '/components/_patterns/00-base/global/01-colors/colors.json',
+          src: `${themeDir}/components/_patterns/00-base/global/01-colors/_color-vars.scss`,
+          dest: `${themeDir}/components/_patterns/00-base/global/01-colors/colors.json`,
           lineStartsWith: '$',
           allowVarValues: false
         }
@@ -87,7 +87,7 @@
       ui: false,
       enabled: true,
       baseDir: './',
-      startPath: themeDir + 'pattern-lab/public/',
+      startPath: `${themeDir}pattern-lab/public/`,
       // Uncomment below if using a specific local url
       // domain: 'emulsify.dev',
       openBrowserAtStart: true,

@@ -59,7 +59,7 @@ export default (gulp, config) => {
    * Task for minifying images.
    */
   gulp.task('imagemin', () => {
-    return gulp.src(config.paths.img + '/**/*')
+    return gulp.src(`${config.paths.img}/**/*`)
       .pipe(imagemin({
         progressive: true,
         svgoPlugins: [
@@ -74,9 +74,9 @@ export default (gulp, config) => {
    * Task for generating icon colors/png fallbacks from svg.
    */
   gulp.task('icons', () => {
-    return gulp.src('**/*.svg', {cwd: config.paths.img + '/icons/src'})
+    return gulp.src('**/*.svg', {cwd: `${config.paths.img}/icons/src`})
       .pipe(svgSprite(config.iconConfig))
-      .pipe(gulp.dest(config.themeDir + '/images/icons'));
+      .pipe(gulp.dest(`${config.themeDir}/images/icons`));
   });
 
   tasks.compile.push('icons');
@@ -107,7 +107,7 @@ export default (gulp, config) => {
     }
     gulp.watch(config.paths.js, ['scripts']).on('change', browserSync.reload);
     gulp.watch(config.paths.styleguide_js, ['styleguide-scripts']).on('change', browserSync.reload);
-    gulp.watch(config.paths.sass + '/**/*.scss', ['css']);
+    gulp.watch(`${config.paths.sass}/**/*.scss`, ['css']);
   });
 
   /**
@@ -132,8 +132,8 @@ export default (gulp, config) => {
    */
   gulp.task('deploy', () => {
     return gulp.src([
-      config.paths.dist_js + '/**/*',
-      config.paths.pattern_lab + '/**/*'
+      `${config.paths.dist_js}/**/*`,
+      `${config.paths.pattern_lab}/**/*`
     ], { base: config.themeDir } )
     .pipe(ghPages());
   });

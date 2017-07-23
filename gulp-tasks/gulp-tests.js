@@ -27,7 +27,7 @@
     gulp.task('psi', 'Performance: PageSpeed Insights', () => {
       // Set up a public tunnel so PageSpeed can see the local site.
       return ngrok.connect(4000, (err_ngrok, url) => {
-        console.log('ngrok - serving your site from ' + url);
+        console.log(`ngrok - serving your site from ${url}`);
 
         // Run PageSpeed once the tunnel is up.
         psi.output(url, {
@@ -59,7 +59,7 @@
 
         // Set up a public tunnel so WebPageTest can see the local site.
         return ngrok.connect(4000, (err_ngrok, url) => {
-          console.log('ngrok - serving your site from ' + url);
+          console.log(`ngrok - serving your site from ${url}`);
 
           // The `url` variable was supplied by ngrok.
           wpt_test.runTest(url, (err_wpt, data_wpt) => {
@@ -70,8 +70,8 @@
             }
 
             // Open window to results.
-            const wpt_results = 'http://www.webpagetest.org/result/' + data_wpt.data.testId;
-            console.log('✔︎  Opening results page: ' + wpt_results);
+            const wpt_results = `http://www.webpagetest.org/result/${data_wpt.data.testId}`;
+            console.log(`✔︎  Opening results page: ${wpt_results}`);
 
             // Note to developer.
             console.log('⚠️  Please keep this process running until WPT is finished.');

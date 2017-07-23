@@ -26,7 +26,7 @@
     const consolePath = path.join(plRoot, 'core/console');
 
     function plBuild(cb) {
-      notifier.sh('php ' + consolePath + ' ' + '--generate', true, () => {
+      notifier.sh(`php ${consolePath} --generate`, true, () => {
         if (config.browserSync.enabled) {
           browserSync.reload;
         }
@@ -38,10 +38,10 @@
 
     const watchedExtensions = config.patternLab.watchedExtensions.join(',');
     gulp.task('watch:pl', () => {
-      const plGlob = path.normalize(plSource + '/**/*.{' + watchedExtensions + '}');
+      const plGlob = path.normalize(`${plSource}/**/*.{${watchedExtensions}}`);
       gulp.watch(plGlob, event => {
-        console.log('File ' + path.relative(process.cwd(), event.path) + ' was ' + event.type + ', running tasks...');
-        notifier.sh('php ' + consolePath + ' ' + '--generate', false, () => {
+        console.log(`File ${path.relative(process.cwd(), event.path)} was ${event.type}, running tasks...`);
+        notifier.sh(`php ${consolePath} --generate`, false, () => {
           if (config.browserSync.enabled) {
             browserSync.reload;
           }
@@ -72,7 +72,7 @@
           fs.writeFileSync(pair.dest, JSON.stringify({
             items: varsAndValues,
             meta: {
-              description: 'To add to these items, use Sass variables that start with <code>' + pair.lineStartsWith + '</code> in <code>' + pair.src + '</code>'
+              description: `To add to these items, use Sass variables that start with <code>${pair.lineStartsWith}</code> in <code>${pair.src}</code>`
             }
           }, null, '  '));
 

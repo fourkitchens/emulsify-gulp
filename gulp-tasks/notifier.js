@@ -19,7 +19,7 @@
     });
     child.on('close', (code) => {
       if (code > 0) {
-        console.log('Error with code ' + code + ' after running: ' + cmd);
+        console.log(`Error with code ${code} after running: ${cmd}`);
         if (exitOnError) {
           process.exit(code);
         }
