@@ -62,7 +62,7 @@
           console.log(`ngrok - serving your site from ${url}`);
 
           // The `url` variable was supplied by ngrok.
-          wpt_test.runTest(url, (err_wpt, data_wpt) => {
+          wpt_test.runTest(url, (err_wpt, {data}) => {
             // Log any potential errors and return a FAILURE.
             if (err_wpt) {
               console.log(err_wpt);
@@ -70,7 +70,7 @@
             }
 
             // Open window to results.
-            const wpt_results = `http://www.webpagetest.org/result/${data_wpt.data.testId}`;
+            const wpt_results = `http://www.webpagetest.org/result/${data.testId}`;
             console.log(`✔︎  Opening results page: ${wpt_results}`);
 
             // Note to developer.

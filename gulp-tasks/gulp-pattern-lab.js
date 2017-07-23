@@ -14,7 +14,7 @@
   const yaml = require('js-yaml');
   const fs = require('fs');
 
-  module.exports = (gulp, config, tasks) => {
+  module.exports = (gulp, config, {watch, compile}) => {
 
     const plConfig = yaml.safeLoad(
       fs.readFileSync(config.patternLab.configFile, 'utf8')
@@ -54,8 +54,8 @@
     if (config.patternLab.scssToJson) {
       // turns scss files full of variables into json files that PL can iterate on
       gulp.task('pl:scss-to-json', done => {
-        config.patternLab.scssToJson.forEach(pair => {
-          let scssVarList = _.filter(fs.readFileSync(pair.src, 'utf8').split('\n'), item => _.startsWith(item, pair.lineStartsWith));
+        config.patternLab.scssToJson.forEach(({src, lineStartsWith, allowVarValues, dest}) => {
+          let scssVarList = _.filter(fs.readFileSync(src, 'utf8').split('\n'), item => _.startsWith(item, lineStartsWith));
           // console.log(scssVarList, item.src);
           let varsAndValues = _.map(scssVarList, item => {
             let x = item.split(':');
@@ -65,14 +65,14 @@
             };
           });
 
-          if (!pair.allowVarValues) {
-            varsAndValues = _.filter(varsAndValues, item => !_.startsWith(item.value, '$'));
+          if (!allowVarValues) {
+            varsAndValues = _.filter(varsAndValues, ({value}) => !_.startsWith(value, '$'));
           }
 
-          fs.writeFileSync(pair.dest, JSON.stringify({
+          fs.writeFileSync(dest, JSON.stringify({
             items: varsAndValues,
             meta: {
-              description: `To add to these items, use Sass variables that start with <code>${pair.lineStartsWith}</code> in <code>${pair.src}</code>`
+              description: `To add to these items, use Sass variables that start with <code>${lineStartsWith}</code> in <code>${src}</code>`
             }
           }, null, '  '));
 
@@ -82,16 +82,16 @@
       plFullDependencies.push('pl:scss-to-json');
 
       gulp.task('watch:pl:scss-to-json', () => {
-        const files = config.patternLab.scssToJson.map(file => file.src);
+        const files = config.patternLab.scssToJson.map(({src}) => src);
         gulp.watch(files, ['pl:scss-to-json']);
       });
-      tasks.watch.push('watch:pl:scss-to-json');
+      watch.push('watch:pl:scss-to-json');
     }
 
     gulp.task('pl:full', false, plFullDependencies, plBuild);
 
-    tasks.watch.push('watch:pl');
-    tasks.compile.push('pl:full');
+    watch.push('watch:pl');
+    compile.push('pl:full');
 
   };
 
