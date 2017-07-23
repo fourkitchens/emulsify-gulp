@@ -60,7 +60,7 @@
     });
 
     gulp.task('validate:css', 'Lint Scss files', () => {
-      var src = config.cssConfig.src;
+      let src = config.cssConfig.src;
       if (config.cssConfig.lint.extraSrc) {
         src = src.concat(config.cssConfig.lint.extraSrc);
       }
@@ -74,7 +74,7 @@
     });
 
     gulp.task('watch:css', () => {
-      var tasks = ['css'];
+      const tasks = ['css'];
       if (config.cssConfig.lint.enabled) {
         tasks.push('validate:css');
       }
@@ -83,7 +83,7 @@
 
     tasks.watch.push('watch:css');
 
-    var cssDeps = [];
+    const cssDeps = [];
 
     gulp.task('css:full', false, cssDeps, cssCompile);
 
