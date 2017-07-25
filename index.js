@@ -130,7 +130,7 @@ module.exports = function(gulp, config) {
   /**
    * Deploy
    */
-  gulp.task('deploy', function () {
+  gulp.task('ghpages-deploy', function () {
     return gulp.src([
       config.paths.dist_js + '/**/*',
       config.paths.pattern_lab + '/**/*'
