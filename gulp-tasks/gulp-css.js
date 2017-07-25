@@ -19,6 +19,13 @@
   var del = require('del');
 
   module.exports = function (gulp, config, tasks, browserSync) {
+    
+    if (typeof config.cssConfig.dest_vue === 'undefined') {
+      config.cssConfig.use_dest_vue = false
+      config.cssConfig.dest_vue = ''
+    } else {
+      config.cssConfig.use_dest_vue = true
+    }
 
     function cssCompile(done) {
       gulp.src(config.cssConfig.src)
@@ -37,12 +44,13 @@
         sourceComments: config.cssConfig.sourceComments,
         includePaths: require('node-normalize-scss').with(config.cssConfig.includePaths)
       }).on('error', sass.logError))
-      .pipe(prefix(['last 1 version', '> 1%', 'ie 10']))
+      .pipe(prefix(config.cssConfig.autoPrefixerBrowsers))
       .pipe(sourcemaps.init())
       .pipe(cleanCSS())
       .pipe(sourcemaps.write((config.cssConfig.sourceMapEmbed) ? null : './'))
       .pipe(gulpif(config.cssConfig.flattenDestOutput, flatten()))
       .pipe(gulp.dest(config.cssConfig.dest))
+      .pipe(gulpif(config.cssConfig.use_dest_vue, gulp.dest(config.cssConfig.dest_vue)))
       .on('end', function () {
         browserSync.reload('*.css');
         done();
