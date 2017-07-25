@@ -28,7 +28,7 @@
     function plBuild(cb) {
       notifier.sh(`php ${consolePath} --generate`, true, () => {
         if (config.browserSync.enabled) {
-          browserSync.reload;
+          browserSync.reload('*.html');
         }
         cb();
       });
@@ -43,7 +43,7 @@
         console.log(`File ${path.relative(process.cwd(), event.path)} was ${event.type}, running tasks...`);
         notifier.sh(`php ${consolePath} --generate`, false, () => {
           if (config.browserSync.enabled) {
-            browserSync.reload;
+            browserSync.reload('*.html');
           }
         });
       });
