@@ -14,7 +14,7 @@
   const yaml = require('js-yaml');
   const fs = require('fs');
 
-  module.exports = (gulp, config, {watch, compile}) => {
+  module.exports = (gulp, config, {watch, compile}, browserSync) => {
 
     const plConfig = yaml.safeLoad(
       fs.readFileSync(config.patternLab.configFile, 'utf8')
