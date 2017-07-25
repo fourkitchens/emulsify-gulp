@@ -59,7 +59,7 @@
       mode: {
         css: {
           bust: false,
-          dest: '../../dist',
+          dest: 'dist',
           prefix: '@mixin sprite-%s',
           render: {
             scss: {
