@@ -1,27 +1,27 @@
 /* globals require */
 
-(function () {
+((() => {
 
   'use strict';
 
   // SCSS/CSS
-  var sass = require('gulp-sass');
-  var sassGlob = require('gulp-sass-glob');
-  var sourcemaps = require('gulp-sourcemaps');
-  var stylelint = require('gulp-stylelint')
-  var prefix = require('gulp-autoprefixer');
-  var cached = require('gulp-cached');
-  var plumber = require('gulp-plumber');
-  var notify = require('gulp-notify');
-  var flatten = require('gulp-flatten');
-  var gulpif = require('gulp-if');
-  var cleanCSS = require('gulp-clean-css');
-  var del = require('del');
+  const sass = require('gulp-sass');
+  const sassGlob = require('gulp-sass-glob');
+  const sourcemaps = require('gulp-sourcemaps');
+  const stylelint = require('gulp-stylelint')
+  const prefix = require('gulp-autoprefixer');
+  const cached = require('gulp-cached');
+  const plumber = require('gulp-plumber');
+  const notify = require('gulp-notify');
+  const flatten = require('gulp-flatten');
+  const gulpif = require('gulp-if');
+  const cleanCSS = require('gulp-clean-css');
+  const del = require('del');
 
-  module.exports = function (gulp, config, tasks, browserSync) {
+  module.exports = (gulp, {cssConfig, debug}, {watch, validate, clean}, browserSync) => {
 
     function cssCompile(done) {
-      gulp.src(config.cssConfig.src)
+      gulp.src(cssConfig.src)
       .pipe(sassGlob())
       .pipe(stylelint({
         failAfterError: false,
@@ -30,20 +30,20 @@
         }]
       }))
       .pipe(sourcemaps.init({
-        debug: config.debug
+        debug: debug
       }))
       .pipe(sass({
-        outputStyle: config.cssConfig.outputStyle,
-        sourceComments: config.cssConfig.sourceComments,
-        includePaths: require('node-normalize-scss').with(config.cssConfig.includePaths)
+        outputStyle: cssConfig.outputStyle,
+        sourceComments: cssConfig.sourceComments,
+        includePaths: require('node-normalize-scss').with(cssConfig.includePaths)
       }).on('error', sass.logError))
       .pipe(prefix(['last 1 version', '> 1%', 'ie 10']))
       .pipe(sourcemaps.init())
       .pipe(cleanCSS())
-      .pipe(sourcemaps.write((config.cssConfig.sourceMapEmbed) ? null : './'))
-      .pipe(gulpif(config.cssConfig.flattenDestOutput, flatten()))
-      .pipe(gulp.dest(config.cssConfig.dest))
-      .on('end', function () {
+      .pipe(sourcemaps.write((cssConfig.sourceMapEmbed) ? null : './'))
+      .pipe(gulpif(cssConfig.flattenDestOutput, flatten()))
+      .pipe(gulp.dest(cssConfig.dest))
+      .on('end', () => {
         browserSync.reload('*.css');
         done();
       });
@@ -51,18 +51,18 @@
 
     gulp.task('css', 'Compile Scss to CSS using Libsass with Autoprefixer and SourceMaps', cssCompile);
 
-    gulp.task('clean:css', 'Delete compiled CSS files', function (done) {
+    gulp.task('clean:css', 'Delete compiled CSS files', (done) => {
       del([
-        config.cssConfig.dest + '*.{css,css.map}'
-      ]).then(function () {
+        `${cssConfig.dest}*.{css,css.map}`
+      ]).then(() => {
         done();
       });
     });
 
-    gulp.task('validate:css', 'Lint Scss files', function () {
-      var src = config.cssConfig.src;
-      if (config.cssConfig.lint.extraSrc) {
-        src = src.concat(config.cssConfig.lint.extraSrc);
+    gulp.task('validate:css', 'Lint Scss files', () => {
+      let src = cssConfig.src;
+      if (cssConfig.lint.extraSrc) {
+        src = src.concat(cssConfig.lint.extraSrc);
       }
       return gulp.src(src)
       .pipe(cached('validate:css'))
@@ -73,26 +73,26 @@
       }))
     });
 
-    gulp.task('watch:css', function () {
-      var tasks = ['css'];
-      if (config.cssConfig.lint.enabled) {
+    gulp.task('watch:css', () => {
+      const tasks = ['css'];
+      if (cssConfig.lint.enabled) {
         tasks.push('validate:css');
       }
-      return gulp.watch(config.cssConfig.src, tasks);
+      return gulp.watch(cssConfig.src, tasks);
     });
 
-    tasks.watch.push('watch:css');
+    watch.push('watch:css');
 
-    var cssDeps = [];
+    const cssDeps = [];
 
     gulp.task('css:full', false, cssDeps, cssCompile);
 
-    if (config.cssConfig.lint.enabled) {
-      tasks.validate.push('validate:css');
+    if (cssConfig.lint.enabled) {
+      validate.push('validate:css');
     }
 
-    tasks.clean.push('clean:css');
+    clean.push('clean:css');
 
   };
 
-})();
+}))();
