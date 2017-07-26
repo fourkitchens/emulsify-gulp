@@ -82,7 +82,7 @@ module.exports = (gulp, config) => {
   tasks.compile.push('icons');
 
   // Pattern Lab
-  require('./gulp-tasks/gulp-pattern-lab.js')(gulp, config, tasks);
+  require('./gulp-tasks/gulp-pattern-lab.js')(gulp, config, tasks, browserSync);
 
   /**
    * Task for running browserSync.

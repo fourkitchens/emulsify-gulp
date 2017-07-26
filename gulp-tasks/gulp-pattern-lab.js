@@ -14,7 +14,7 @@
   const yaml = require('js-yaml');
   const fs = require('fs');
 
-  module.exports = (gulp, config, {watch, compile}) => {
+  module.exports = (gulp, config, {watch, compile}, browserSync) => {
 
     const plConfig = yaml.safeLoad(
       fs.readFileSync(config.patternLab.configFile, 'utf8')
@@ -28,7 +28,7 @@
     function plBuild(cb) {
       notifier.sh(`php ${consolePath} --generate`, true, () => {
         if (config.browserSync.enabled) {
-          browserSync.reload;
+          browserSync.reload('*.html');
         }
         cb();
       });
@@ -43,7 +43,7 @@
         console.log(`File ${path.relative(process.cwd(), event.path)} was ${event.type}, running tasks...`);
         notifier.sh(`php ${consolePath} --generate`, false, () => {
           if (config.browserSync.enabled) {
-            browserSync.reload;
+            browserSync.reload('*.html');
           }
         });
       });
