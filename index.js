@@ -86,7 +86,7 @@ module.exports = (gulp, config) => {
   require('./gulp-tasks/gulp-pattern-lab.js')(gulp, config, tasks);
 
   // Find open port using portscanner.
-  var openPort = 3000;
+  let openPort = '';
   portscanner.findAPortNotInUse(3000, 3010, '127.0.0.1', function (error, port) {
     openPort = port;
   });
