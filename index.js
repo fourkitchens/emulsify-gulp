@@ -6,6 +6,7 @@ module.exports = (gulp, config) => {
   // General
   var gulp = require('gulp-help')(gulp);
   const _ = require('lodash');
+  const portscanner = require('portscanner');
   const browserSync = require('browser-sync').create();
   const defaultConfig = require('./gulp-config');
   var config = _.defaultsDeep(config, defaultConfig);
@@ -84,6 +85,12 @@ module.exports = (gulp, config) => {
   // Pattern Lab
   require('./gulp-tasks/gulp-pattern-lab.js')(gulp, config, tasks, browserSync);
 
+  // Find open port using portscanner.
+  let openPort = '';
+  portscanner.findAPortNotInUse(3000, 3010, '127.0.0.1', function (error, port) {
+    openPort = port;
+  });
+
   /**
    * Task for running browserSync.
    */
@@ -102,7 +109,12 @@ module.exports = (gulp, config) => {
         server: {
           baseDir: config.browserSync.baseDir
         },
-        startPath: config.browserSync.startPath
+        startPath: config.browserSync.startPath,
+        notify: config.browserSync.notify,
+        ui: config.browserSync.ui,
+        open: config.browserSync.openBrowserAtStart,
+        reloadOnRestart: config.browserSync.reloadOnRestart,
+        port: openPort,
       });
     }
     gulp.watch(config.paths.js, ['scripts']).on('change', browserSync.reload);
