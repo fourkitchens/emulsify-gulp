@@ -1,0 +1,3 @@
+extends: airbnb-base
+rules:
+  global-require: off

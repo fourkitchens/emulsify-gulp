@@ -1,17 +1,10 @@
 /* globals require, process, __dirname */
+const ngrok = require('ngrok');
+const psi = require('psi');
+const wpt = require('webpagetest');
 
 ((() => {
-
-  'use strict';
-
-  // Performance Testing
-  const ngrok = require('ngrok');
-  const psi = require('psi');
-  const wpt = require('webpagetest');
-  const spawn = require("gulp-spawn");
-
   module.exports = (gulp, config) => {
-
     // -----------------------------------------------------------------------------
     // Performance test: PageSpeed Insights
     //
@@ -26,17 +19,19 @@
     // -----------------------------------------------------------------------------
     gulp.task('psi', 'Performance: PageSpeed Insights', () => {
       // Set up a public tunnel so PageSpeed can see the local site.
-      return ngrok.connect(4000, (err_ngrok, url) => {
+      ngrok.connect(4000, (errNgrok, url) => {
+        // eslint-disable-next-line no-console
         console.log(`ngrok - serving your site from ${url}`);
 
         // Run PageSpeed once the tunnel is up.
         psi.output(url, {
           strategy: 'mobile',
-          threshold: 90
-        }, (err_psi, data) => {
+          threshold: 90,
+        }, (errPsi) => {
           // Log any potential errors and return a FAILURE.
-          if (err_psi) {
-            console.log(err_psi);
+          if (errPsi) {
+            // eslint-disable-next-line no-console
+            console.log(errPsi);
             process.exit(1);
           }
 
@@ -53,38 +48,42 @@
     // site, then it tests the site. This task outputs the standard PageSpeed results.
     // -----------------------------------------------------------------------------
     gulp.task('wpt', 'Performance: WebPageTest.org', () => {
-
       if (config.wpt.key && config.wpt.key !== null) {
-        const wpt_test = wpt('www.webpagetest.org', config.wpt.key);
+        const wptTest = wpt('www.webpagetest.org', config.wpt.key);
 
         // Set up a public tunnel so WebPageTest can see the local site.
-        return ngrok.connect(4000, (err_ngrok, url) => {
+        ngrok.connect(4000, (errNgrok, url) => {
+          // eslint-disable-next-line no-console
           console.log(`ngrok - serving your site from ${url}`);
 
           // The `url` variable was supplied by ngrok.
-          wpt_test.runTest(url, (err_wpt, {data}) => {
+          wptTest.runTest(url, (errWpt, { data }) => {
             // Log any potential errors and return a FAILURE.
-            if (err_wpt) {
-              console.log(err_wpt);
+            if (errWpt) {
+              // eslint-disable-next-line no-console
+              console.log(errWpt);
               process.exit(1);
             }
 
             // Open window to results.
-            const wpt_results = `http://www.webpagetest.org/result/${data.testId}`;
-            console.log(`✔︎  Opening results page: ${wpt_results}`);
+            const wptResults = `http://www.webpagetest.org/result/${data.testId}`;
+            // eslint-disable-next-line no-console
+            console.log(`✔︎  Opening results page: ${wptResults}`);
 
             // Note to developer.
+            /* eslint-disable no-console */
             console.log('⚠️  Please keep this process running until WPT is finished.');
             console.log('⚠️  Once the results load, hit Control + C to kill this process.');
+            /* eslint-enable no-console */
           });
         });
+      // eslint-disable-next-line no-else-return
       } else {
+        // eslint-disable-next-line no-console
         console.log('Missing wptkey env variable.');
       }
     });
 
     gulp.task('qa', 'Run all quality checks and tests.', ['psi', 'wpt']);
-
   };
-
 }))();

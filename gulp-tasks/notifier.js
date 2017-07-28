@@ -1,13 +1,13 @@
 /* globals require, process */
 
-((() => {
-  'use strict';
-  const exec = require('child_process').exec;
-  const notifier = require('node-notifier');
+const exec = require('child_process').exec;
+const notifier = require('node-notifier');
 
+((() => {
   function sh(cmd, exitOnError, cb) {
-    const child = exec(cmd, {encoding: 'utf8'});
+    const child = exec(cmd, { encoding: 'utf8' });
     let stdout = '';
+    // eslint-disable-next-line no-unused-vars
     let stderr = '';
     child.stdout.on('data', (data) => {
       stdout += data;
@@ -19,24 +19,23 @@
     });
     child.on('close', (code) => {
       if (code > 0) {
+        // eslint-disable-next-line no-console
         console.log(`Error with code ${code} after running: ${cmd}`);
         if (exitOnError) {
           process.exit(code);
-        }
-        else {
+        } else {
           notifier.notify({
             title: cmd,
             message: stdout,
-            sound: true
+            sound: true,
           });
-        };
+        }
       }
       cb();
     });
   }
 
   module.exports = {
-    sh
+    sh,
   };
-
 }))();
