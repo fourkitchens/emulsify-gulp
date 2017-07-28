@@ -38,6 +38,7 @@
     "node-normalize-scss": "^3.0.0",
     "node-notifier": "^5.1.2",
     "portscanner": "^2.1.1",
+    "pre-commit": "^1.2.2",
     "psi": "^3.0.0",
     "singularitygs": "^1.7.0",
     "stylelint": "^8.0.0",
@@ -47,5 +48,6 @@
   "devDependencies": {
     "eslint-config-airbnb-base": "^11.3.1",
     "eslint-plugin-import": "^2.7.0"
-  }
+  },
+  "pre-commit": "lint"
 }
