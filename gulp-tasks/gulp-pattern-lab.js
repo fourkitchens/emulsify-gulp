@@ -42,12 +42,12 @@ const fs = require('fs');
 
     const plFullDependencies = [];
 
-    if (config.patternLab.scssToJson) {
-      // turns scss files full of variables into json files that PL can iterate on
-      gulp.task('pl:scss-to-json', (done) => {
-        config.patternLab.scssToJson.forEach(({ src, lineStartsWith, allowVarValues, dest }) => {
+    if (config.patternLab.scssToYAML) {
+      // turns scss files full of variables into yaml files that PL can iterate on
+      gulp.task('pl:scss-to-yaml', (done) => {
+        config.patternLab.scssToYAML.forEach(({ src, lineStartsWith, allowVarValues, dest }) => {
           const scssVarList = _.filter(fs.readFileSync(src, 'utf8').split('\n'), item => _.startsWith(item, lineStartsWith));
-          // console.log(scssVarList, item.src);
+
           let varsAndValues = _.map(scssVarList, (item) => {
             const x = item.split(':');
             return {
@@ -60,22 +60,22 @@ const fs = require('fs');
             varsAndValues = _.filter(varsAndValues, ({ value }) => !_.startsWith(value, '$'));
           }
 
-          fs.writeFileSync(dest, JSON.stringify({
+          fs.writeFileSync(dest, yaml.dump({
             items: varsAndValues,
             meta: {
               description: `To add to these items, use Sass variables that start with <code>${lineStartsWith}</code> in <code>${src}</code>`,
             },
-          }, null, '  '));
+          }));
         });
         done();
       });
-      plFullDependencies.push('pl:scss-to-json');
+      plFullDependencies.push('pl:scss-to-yaml');
 
-      gulp.task('watch:pl:scss-to-json', () => {
-        const files = config.patternLab.scssToJson.map(({ src }) => src);
-        gulp.watch(files, ['pl:scss-to-json']);
+      gulp.task('watch:pl:scss-to-yaml', () => {
+        const files = config.patternLab.scssToYAML.map(({ src }) => src);
+        gulp.watch(files, ['pl:scss-to-yaml']);
       });
-      watch.push('watch:pl:scss-to-json');
+      watch.push('watch:pl:scss-to-yaml');
     }
 
     gulp.task('pl:full', false, plFullDependencies, plBuild);
