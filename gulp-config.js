@@ -74,25 +74,26 @@
       enabled: true,
       configFile: `${themeDir}pattern-lab/config/config.yml`,
       watchedExtensions: (['twig', 'json', 'yaml', 'yml', 'md', 'jpg', 'jpeg', 'png']),
-      scssToJson: [
+      scssToYAML: [
         {
           src: `${themeDir}/components/_patterns/00-base/global/01-colors/_color-vars.scss`,
-          dest: `${themeDir}/components/_patterns/00-base/global/01-colors/colors.json`,
+          dest: `${themeDir}/components/_patterns/00-base/global/01-colors/colors.yml`,
           lineStartsWith: '$',
           allowVarValues: false
         }
       ]
     },
     browserSync: {
+      ui: false,
       enabled: true,
       baseDir: './',
-      startPath: `pattern-lab/public/`,
+      startPath: `${themeDir}pattern-lab/public/`,
       // Uncomment below if using a specific local url
       // domain: 'emulsify.dev',
-      notify: false,
-      openBrowserAtStart: false,
-      reloadOnRestart: true,
-      ui: false,
+      openBrowserAtStart: true,
+      browser: "google chrome",
+      reloadDelay: 50,
+      reloadDebounce: 750
     },
     wpt: {
       // WebPageTest API key https://www.webpagetest.org/getkey.php
