@@ -84,16 +84,15 @@
       ]
     },
     browserSync: {
-      ui: false,
       enabled: true,
       baseDir: './',
-      startPath: `${themeDir}pattern-lab/public/`,
+      startPath: `pattern-lab/public/`,
       // Uncomment below if using a specific local url
       // domain: 'emulsify.dev',
-      openBrowserAtStart: true,
-      browser: "google chrome",
-      reloadDelay: 50,
-      reloadDebounce: 750
+      notify: false,
+      openBrowserAtStart: false,
+      reloadOnRestart: true,
+      ui: false,
     },
     wpt: {
       // WebPageTest API key https://www.webpagetest.org/getkey.php
