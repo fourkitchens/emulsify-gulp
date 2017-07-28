@@ -1,21 +1,19 @@
 /* globals module */
 
 ((() => {
-  'use strict';
-
   const themeDir = './';
   const paths = {
     js: `${themeDir}/components/_patterns/00-base/global/*.js`,
     styleguide_js: [
       `${themeDir}/js/**/*.js`,
-      `${themeDir}/components/_patterns/**/*.js`
+      `${themeDir}/components/_patterns/**/*.js`,
     ],
     dist_js: `${themeDir}/dist`,
     sass: themeDir,
     img: `${themeDir}/images`,
     dist_css: `${themeDir}/dist/css`,
     dist_img: `${themeDir}/dist/img`,
-    pattern_lab: `${themeDir}/pattern-lab/public`
+    pattern_lab: `${themeDir}/pattern-lab/public`,
   };
 
   module.exports = {
@@ -25,8 +23,8 @@
     sassOptions: {
       outputStyle: 'expanded',
       eyeglass: {
-        enableImportOnce: false
-      }
+        enableImportOnce: false,
+      },
     },
     cssConfig: {
       enabled: true,
@@ -35,26 +33,26 @@
       flattenDestOutput: true,
       lint: {
         enabled: false,
-        failOnError: true
+        failOnError: true,
       },
       sourceComments: false,
       sourceMapEmbed: false,
       outputStyle: 'expanded',
       autoPrefixerBrowsers: [
         'last 2 versions',
-        '- IE >= 9'
+        '- IE >= 9',
       ],
-      includePaths: (['./node_modules'])
+      includePaths: (['./node_modules']),
     },
     iconConfig: {
       shape: {
         dimension: {
           maxWidth: 15,
-          maxHeight: 15
+          maxHeight: 15,
         },
-        spacing: {         // Add padding
-          padding: 10
-        }
+        spacing: {
+          padding: 10,
+        },
       },
       mode: {
         css: {
@@ -64,11 +62,11 @@
           render: {
             scss: {
               dest: '../components/_patterns/01-atoms/04-images/icons/_icon_sprite.scss',
-              template: 'node_modules/emulsify-gulp/gulp-tasks/svg-icons/sprite.scss.handlebars'
-            }
-          }
-        }
-      }
+              template: 'node_modules/emulsify-gulp/gulp-tasks/svg-icons/sprite.scss.handlebars',
+            },
+          },
+        },
+      },
     },
     patternLab: {
       enabled: true,
@@ -79,14 +77,14 @@
           src: `${themeDir}/components/_patterns/00-base/global/01-colors/_color-vars.scss`,
           dest: `${themeDir}/components/_patterns/00-base/global/01-colors/colors.json`,
           lineStartsWith: '$',
-          allowVarValues: false
-        }
-      ]
+          allowVarValues: false,
+        },
+      ],
     },
     browserSync: {
       enabled: true,
       baseDir: './',
-      startPath: `pattern-lab/public/`,
+      startPath: 'pattern-lab/public/',
       // Uncomment below if using a specific local url
       // domain: 'emulsify.dev',
       notify: false,
@@ -97,6 +95,6 @@
     wpt: {
       // WebPageTest API key https://www.webpagetest.org/getkey.php
       // key:
-    }
+    },
   };
 }))();

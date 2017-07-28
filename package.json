@@ -2,10 +2,15 @@
   "name": "emulsify-gulp",
   "description": "A collection of useful gulp tasks.",
   "version": "1.0.0",
+  "scripts": {
+    "lint": "eslint --ext .js .",
+    "precommit": "npm run lint"
+  },
   "dependencies": {
     "breakpoint-sass": "^2.7.0",
     "browser-sync": "^2.11.0",
     "del": "^3.0.0",
+    "eslint": "^4.3.0",
     "glob": "^7.0.3",
     "gulp": "^3.9.1",
     "gulp-autoprefixer": "^4.0.0",
@@ -32,10 +37,15 @@
     "ngrok": "^2.2.2",
     "node-normalize-scss": "^3.0.0",
     "node-notifier": "^5.1.2",
+    "portscanner": "^2.1.1",
     "psi": "^3.0.0",
     "singularitygs": "^1.7.0",
     "stylelint": "^8.0.0",
     "stylelint-config-standard": "^17.0.0",
     "webpagetest": "^0.3.4"
+  },
+  "devDependencies": {
+    "eslint-config-airbnb-base": "^11.3.1",
+    "eslint-plugin-import": "^2.7.0"
   }
 }

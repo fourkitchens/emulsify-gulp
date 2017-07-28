@@ -1,14 +1,14 @@
 /* globals require */
 
 module.exports = (gulp, config) => {
-  'use strict';
-
   // General
+  // eslint-disable-next-line no-redeclare, no-var
   var gulp = require('gulp-help')(gulp);
   const _ = require('lodash');
   const portscanner = require('portscanner');
   const browserSync = require('browser-sync').create();
   const defaultConfig = require('./gulp-config');
+  // eslint-disable-next-line no-redeclare, no-var
   var config = _.defaultsDeep(config, defaultConfig);
 
   // scripts
@@ -29,7 +29,7 @@ module.exports = (gulp, config) => {
     watch: [],
     validate: [],
     clean: [],
-    default: []
+    default: [],
   };
 
   // SCSS/CSS
@@ -42,7 +42,7 @@ module.exports = (gulp, config) => {
    * Script Task
    */
   gulp.task('scripts', () => {
-    return gulp.src(config.paths.js)
+    gulp.src(config.paths.js)
       // Concatenate everything within the JavaScript folder.
       .pipe(concat('scripts.js'))
       .pipe(uglify())
@@ -50,7 +50,7 @@ module.exports = (gulp, config) => {
   });
 
   gulp.task('styleguide-scripts', () => {
-    return gulp.src(config.paths.styleguide_js)
+    gulp.src(config.paths.styleguide_js)
       // Concatenate everything within the JavaScript folder.
       .pipe(concat('scripts-styleguide.js'))
       .pipe(gulp.dest(config.paths.dist_js));
@@ -60,13 +60,13 @@ module.exports = (gulp, config) => {
    * Task for minifying images.
    */
   gulp.task('imagemin', () => {
-    return gulp.src(`${config.paths.img}/**/*`)
+    gulp.src(`${config.paths.img}/**/*`)
       .pipe(imagemin({
         progressive: true,
         svgoPlugins: [
-          {removeViewBox: false},
-          {cleanupIDs: false}
-        ]
+          { removeViewBox: false },
+          { cleanupIDs: false },
+        ],
       }))
       .pipe(gulp.dest(config.paths.dist_img));
   });
@@ -75,7 +75,7 @@ module.exports = (gulp, config) => {
    * Task for generating icon colors/png fallbacks from svg.
    */
   gulp.task('icons', () => {
-    return gulp.src('**/*.svg', {cwd: `${config.paths.img}/icons/src`})
+    gulp.src('**/*.svg', { cwd: `${config.paths.img}/icons/src` })
       .pipe(svgSprite(config.iconConfig))
       .pipe(gulp.dest(`${config.themeDir}/images/icons`));
   });
@@ -87,7 +87,7 @@ module.exports = (gulp, config) => {
 
   // Find open port using portscanner.
   let openPort = '';
-  portscanner.findAPortNotInUse(3000, 3010, '127.0.0.1', function (error, port) {
+  portscanner.findAPortNotInUse(3000, 3010, '127.0.0.1', (error, port) => {
     openPort = port;
   });
 
@@ -100,14 +100,13 @@ module.exports = (gulp, config) => {
         injectChanges: true,
         open: config.browserSync.openBrowserAtStart,
         proxy: config.browserSync.domain,
-        startPath: config.browserSync.startPath
+        startPath: config.browserSync.startPath,
       });
-    }
-    else {
+    } else {
       browserSync.init({
         injectChanges: true,
         server: {
-          baseDir: config.browserSync.baseDir
+          baseDir: config.browserSync.baseDir,
         },
         startPath: config.browserSync.startPath,
         notify: config.browserSync.notify,
@@ -143,11 +142,10 @@ module.exports = (gulp, config) => {
    * Deploy
    */
   gulp.task('ghpages-deploy', () => {
-    return gulp.src([
+    gulp.src([
       `${config.paths.dist_js}/**/*`,
-      `${config.paths.pattern_lab}/**/*`
-    ], { base: config.themeDir } )
-    .pipe(ghPages());
+      `${config.paths.pattern_lab}/**/*`,
+    ], { base: config.themeDir })
+      .pipe(ghPages());
   });
-
 };
