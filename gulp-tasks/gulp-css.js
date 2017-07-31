@@ -28,7 +28,7 @@ const del = require('del');
           // eslint-disable-next-line global-require
           includePaths: require('node-normalize-scss').with(cssConfig.includePaths),
         }).on('error', sass.logError))
-        .pipe(prefix(['last 1 version', '> 1%', 'ie 10']))
+        .pipe(prefix(cssConfig.autoPrefixerBrowsers))
         .pipe(sourcemaps.init())
         .pipe(cleanCSS())
         .pipe(sourcemaps.write((cssConfig.sourceMapEmbed) ? null : './'))
