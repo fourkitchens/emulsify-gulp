@@ -40,7 +40,7 @@
       outputStyle: 'expanded',
       autoPrefixerBrowsers: [
         'last 2 versions',
-        '- IE >= 9',
+        'IE >= 10',
       ],
       includePaths: (['./node_modules']),
     },
