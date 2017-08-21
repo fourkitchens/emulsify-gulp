@@ -40,6 +40,7 @@
     "portscanner": "^2.1.1",
     "pre-commit": "^1.2.2",
     "psi": "^3.0.0",
+    "semantic-release": "^7.0.2",
     "singularitygs": "^1.7.0",
     "stylelint": "^8.0.0",
     "stylelint-config-standard": "^17.0.0",
