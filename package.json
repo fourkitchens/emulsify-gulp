@@ -1,5 +1,5 @@
 {
-  "name": "emulsify-gulp",
+  "name": "@fourkitchens/emulsify-gulp",
   "description": "A collection of useful gulp tasks.",
   "version": "1.1.1",
   "scripts": {
@@ -50,7 +50,18 @@
     "eslint-plugin-import": "^2.7.0"
   },
   "pre-commit": "lint",
-  "engines" : {
-    "node" : ">=6" 
-  }
+  "engines": {
+    "node": ">=6"
+  },
+  "main": "index.js",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/fourkitchens/emulsify-gulp.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/fourkitchens/emulsify-gulp/issues"
+  },
+  "homepage": "https://github.com/fourkitchens/emulsify-gulp#readme"
 }
