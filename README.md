@@ -4,3 +4,6 @@
 
 # Emulsify Gulp
 A collection of useful gulp tasks used automatically with https://github.com/fourkitchens/emulsify
+
+## Semantic Versioning
+This project uses [Semantic Release](https://www.npmjs.com/package/semantic-release) to manage versioning. This means that commit messages are used to automatically update the version of this package. See [Default Commit Message Format](https://www.npmjs.com/package/semantic-release#default-commit-message-format) for 
