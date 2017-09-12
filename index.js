@@ -142,8 +142,9 @@ module.exports = (gulp, config) => {
   /**
    * Deploy
    */
-  gulp.task('ghpages-deploy', () => {
-    gulp.src([
+  // eslint-disable-next-line func-names, prefer-arrow-callback
+  gulp.task('ghpages-deploy', function () {
+    return gulp.src([
       `${config.paths.dist_js}/**/*`,
       `${config.paths.pattern_lab}/**/*`,
     ], { base: config.themeDir })
