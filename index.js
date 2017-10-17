@@ -7,13 +7,15 @@ module.exports = (gulp, config) => {
   const _ = require('lodash');
   const portscanner = require('portscanner');
   const browserSync = require('browser-sync').create();
+  const babel = require('gulp-babel');
+  const sourcemaps = require('gulp-sourcemaps');
   const defaultConfig = require('./gulp-config');
+
   // eslint-disable-next-line no-redeclare, no-var
   var config = _.defaultsDeep(config, defaultConfig);
 
   // scripts
   const concat = require('gulp-concat');
-  const uglify = require('gulp-uglify');
 
   // Image Minification
   const imagemin = require('gulp-imagemin');
@@ -43,16 +45,23 @@ module.exports = (gulp, config) => {
    */
   gulp.task('scripts', () => {
     gulp.src(config.paths.js)
-      // Concatenate everything within the JavaScript folder.
-      .pipe(concat('scripts.js'))
-      .pipe(uglify())
+      .pipe(sourcemaps.init())
+      .pipe(babel({
+        presets: ['env'],
+      }))
+      .pipe(sourcemaps.write(config.themeDir))
       .pipe(gulp.dest(config.paths.dist_js));
   });
 
   gulp.task('styleguide-scripts', () => {
-    gulp.src(config.paths.styleguide_js)
+    gulp.src(config.paths.js)
+      .pipe(sourcemaps.init())
+      .pipe(babel({
+        presets: ['env'],
+      }))
       // Concatenate everything within the JavaScript folder.
       .pipe(concat('scripts-styleguide.js'))
+      .pipe(sourcemaps.write(config.themeDir))
       .pipe(gulp.dest(config.paths.dist_js));
   });
 
