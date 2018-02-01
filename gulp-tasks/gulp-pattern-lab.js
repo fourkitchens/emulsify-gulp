@@ -11,7 +11,7 @@ const fs = require('fs');
       // eslint-disable-next-line comma-dangle
       fs.readFileSync(config.patternLab.configFile, 'utf8')
     );
-    const plRoot = path.join(config.patternLab.configFile, '../..');
+    const plRoot = path.join(config.paths.pattern_lab, '../');
     const plSource = path.join(plRoot, plConfig.sourceDir);
     const consolePath = path.join(plRoot, 'core/console');
 
