@@ -21,7 +21,7 @@
     "gulp-clean-css": "^3.7.0",
     "gulp-concat": "^2.6.0",
     "gulp-flatten": "^0.3.1",
-    "gulp-gh-pages": "git@github.com:tekd/gulp-gh-pages.git",
+    "gulp-gh-pages": "tekd/gulp-gh-pages",
     "gulp-help": "^1.6.1",
     "gulp-if": "^2.0.1",
     "gulp-imagemin": "^3.3.0",
