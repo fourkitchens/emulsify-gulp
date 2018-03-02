@@ -152,7 +152,9 @@ module.exports = (gulp, config) => {
    */
   const distDir = gulp.src([`${config.paths.dist_js}/**/*`, `${config.paths.pattern_lab}/**/*`], { base: config.themeDir });
 
-  ghpages.publish(distDir);
+  gulp.task('ghpages-deploy', () => {
+    ghpages.publish(distDir);
+  });
   // gulp.task('ghpages-deploy', function () {
   //   return gulp.src([
   //     `${config.paths.dist_js}/**/*`,
