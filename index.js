@@ -24,7 +24,7 @@ module.exports = (gulp, config) => {
   const svgSprite = require('gulp-svg-sprite');
 
   // deploy
-  const ghPages = require('gulp-gh-pages');
+  const ghpages = require('gh-pages');
 
   const tasks = {
     compile: [],
@@ -150,12 +150,14 @@ module.exports = (gulp, config) => {
   /**
    * Deploy
    */
-  // eslint-disable-next-line func-names, prefer-arrow-callback
-  gulp.task('ghpages-deploy', function () {
-    return gulp.src([
-      `${config.paths.dist_js}/**/*`,
-      `${config.paths.pattern_lab}/**/*`,
-    ], { base: config.themeDir })
-      .pipe(ghPages());
-  });
+  const distDir = gulp.src([`${config.paths.dist_js}/**/*`, `${config.paths.pattern_lab}/**/*`], { base: config.themeDir });
+
+  ghpages.publish(distDir);
+  // gulp.task('ghpages-deploy', function () {
+  //   return gulp.src([
+  //     `${config.paths.dist_js}/**/*`,
+  //     `${config.paths.pattern_lab}/**/*`,
+  //   ], { base: config.themeDir })
+  //     .pipe(ghPages());
+  // });
 };
