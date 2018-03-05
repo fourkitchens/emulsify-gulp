@@ -150,16 +150,16 @@ module.exports = (gulp, config) => {
   /**
    * Deploy
    */
-  const distDir = gulp.src([`${config.paths.dist_js}/**/*`, `${config.paths.pattern_lab}/**/*`], { base: config.themeDir });
-
   gulp.task('ghpages-deploy', () => {
-    ghpages.publish(distDir);
+    // Create build directory.
+    gulp.src([`${config.paths.dist_js}/**/*`, `${config.paths.pattern_lab}/**/*`], { base: config.themeDir }).pipe(gulp.dest('build'));
+    // Publish the build directory to github pages.
+    ghpages.publish(`${config.themeDir}build`, (err) => {
+      if (err === undefined) {
+        console.log('Successfully deployed!');
+      } else {
+        console.log(err);
+      }
+    });
   });
-  // gulp.task('ghpages-deploy', function () {
-  //   return gulp.src([
-  //     `${config.paths.dist_js}/**/*`,
-  //     `${config.paths.pattern_lab}/**/*`,
-  //   ], { base: config.themeDir })
-  //     .pipe(ghPages());
-  // });
 };
