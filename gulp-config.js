@@ -1,6 +1,6 @@
 /* globals module */
 
-((() => {
+(() => {
   const themeDir = './';
   const paths = {
     js: `${themeDir}/components/_patterns/**/*.js`,
@@ -34,29 +34,27 @@
       sourceComments: false,
       sourceMapEmbed: false,
       outputStyle: 'expanded',
-      autoPrefixerBrowsers: [
-        'last 2 versions',
-        'IE >= 10',
-      ],
-      includePaths: (['./node_modules']),
+      autoPrefixerBrowsers: ['last 2 versions', 'IE >= 10'],
+      includePaths: ['./node_modules'],
     },
     iconConfig: {
       mode: {
-        symbol: { // symbol mode to build the SVG
+        symbol: {
+          // symbol mode to build the SVG
           dest: 'dist/img/sprite', // destination foldeer
           sprite: 'sprite.svg', // sprite name
-          example: false // Don't build sample page
-        }
+          example: false, // Don't build sample page
+        },
       },
       svg: {
         xmlDeclaration: false, // strip out the XML attribute
-        doctypeDeclaration: false // don't include the !DOCTYPE declaration
-      }
+        doctypeDeclaration: false, // don't include the !DOCTYPE declaration
+      },
     },
     patternLab: {
       enabled: true,
       configFile: `${themeDir}pattern-lab/config/config.yml`,
-      watchedExtensions: (['twig', 'json', 'yaml', 'yml', 'md', 'jpg', 'jpeg', 'png']),
+      watchedExtensions: ['twig', 'json', 'yaml', 'yml', 'md', 'jpg', 'jpeg', 'png'],
       scssToYAML: [
         {
           src: `${themeDir}/components/_patterns/00-base/global/01-colors/_color-vars.scss`,
@@ -82,4 +80,4 @@
       // key:
     },
   };
-}))();
+})();
