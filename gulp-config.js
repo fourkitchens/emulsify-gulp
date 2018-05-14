@@ -6,9 +6,13 @@
     js: `${themeDir}/components/_patterns/**/*.js`,
     dist_js: `${themeDir}/dist`,
     sass: themeDir,
-    img: `${themeDir}/images`,
+    img: [
+      `${themeDir}/images/**/*`,
+      `!${themeDir}/images/icons/**/*`,
+      `!${themeDir}/images/icons/`,
+    ],
     dist_css: `${themeDir}/dist/css`,
-    dist_img: `${themeDir}/dist/img`,
+    dist_img: `${themeDir}/images`,
     pattern_lab: `${themeDir}/pattern-lab/public`,
   };
 
@@ -45,13 +49,13 @@
         symbol: { // symbol mode to build the SVG
           dest: 'dist/img/sprite', // destination foldeer
           sprite: 'sprite.svg', // sprite name
-          example: false // Don't build sample page
-        }
+          example: false, // Don't build sample page
+        },
       },
       svg: {
         xmlDeclaration: false, // strip out the XML attribute
-        doctypeDeclaration: false // don't include the !DOCTYPE declaration
-      }
+        doctypeDeclaration: false, // don't include the !DOCTYPE declaration
+      },
     },
     patternLab: {
       enabled: true,
