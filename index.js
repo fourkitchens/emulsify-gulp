@@ -79,7 +79,7 @@ module.exports = (gulp, config) => {
           }),
         ]),
       )
-      .pipe(gulp.dest(config.paths.dist_img));
+      .pipe(gulp.dest(file => file.base));
   });
 
   /**
@@ -105,7 +105,7 @@ module.exports = (gulp, config) => {
   /**
    * Task for running browserSync.
    */
-  gulp.task('serve', ['css', 'scripts', 'styleguide-scripts', 'imagemin', 'watch:pl'], () => {
+  gulp.task('serve', ['imagemin', 'css', 'scripts', 'styleguide-scripts', 'watch:pl'], () => {
     if (config.browserSync.domain) {
       browserSync.init({
         injectChanges: true,

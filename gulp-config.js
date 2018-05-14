@@ -8,11 +8,9 @@
     sass: themeDir,
     img: [
       `${themeDir}/images/**/*`,
-      `!${themeDir}/images/icons/**/*`,
-      `!${themeDir}/images/icons/`,
+      `${themeDir}/components/_patterns/**/*.{jpg, gif, png, svg}`,
     ],
     dist_css: `${themeDir}/dist/css`,
-    dist_img: `${themeDir}/images`,
     pattern_lab: `${themeDir}/pattern-lab/public`,
   };
 
