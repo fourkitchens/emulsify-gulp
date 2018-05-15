@@ -44,21 +44,27 @@ module.exports = (gulp, config) => {
    * Script Task
    */
   gulp.task('scripts', () => {
-    gulp.src(config.paths.js)
+    gulp
+      .src(config.paths.js)
       .pipe(sourcemaps.init())
-      .pipe(babel({
-        presets: ['env', 'minify'],
-      }))
+      .pipe(
+        babel({
+          presets: ['env', 'minify'],
+        }),
+      )
       .pipe(sourcemaps.write(config.themeDir))
       .pipe(gulp.dest(config.paths.dist_js));
   });
 
   gulp.task('styleguide-scripts', () => {
-    gulp.src(config.paths.js)
+    gulp
+      .src(config.paths.js)
       .pipe(sourcemaps.init())
-      .pipe(babel({
-        presets: ['env'],
-      }))
+      .pipe(
+        babel({
+          presets: ['env'],
+        }),
+      )
       // Concatenate everything within the JavaScript folder.
       .pipe(concat('scripts-styleguide.js'))
       .pipe(sourcemaps.write(config.themeDir))
@@ -86,7 +92,8 @@ module.exports = (gulp, config) => {
    * Task for generating icon colors/png fallbacks from svg.
    */
   gulp.task('icons', () => {
-    gulp.src('**/*.svg', { cwd: `${config.paths.img}/icons/src` })
+    gulp
+      .src('**/*.svg', { cwd: `${config.paths.img}/icons/src` })
       .pipe(svgSprite(config.iconConfig))
       .pipe(gulp.dest('.'));
   });
@@ -155,7 +162,16 @@ module.exports = (gulp, config) => {
    */
   gulp.task('ghpages-deploy', () => {
     // Create build directory.
-    gulp.src([`${config.paths.dist_js}/**/*`, `${config.paths.pattern_lab}/**/*`], { base: config.themeDir }).pipe(gulp.dest('build'));
+    gulp
+      .src(
+        [
+          `${config.paths.dist_js}/**/*`,
+          `${config.paths.pattern_lab}/**/*`,
+          `${config.themeDir}/CNAME`,
+        ],
+        { base: config.themeDir },
+      )
+      .pipe(gulp.dest('build'));
     // Publish the build directory to github pages.
     ghpages.publish(`${config.themeDir}build`, (err) => {
       if (err === undefined) {
