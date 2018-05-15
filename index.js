@@ -69,15 +69,17 @@ module.exports = (gulp, config) => {
    * Task for minifying images.
    */
   gulp.task('imagemin', () => {
-    gulp.src(`${config.paths.img}/**/*`)
-      .pipe(imagemin({
-        progressive: true,
-        svgoPlugins: [
-          { removeViewBox: false },
-          { cleanupIDs: false },
-        ],
-      }))
-      .pipe(gulp.dest(config.paths.dist_img));
+    gulp
+      .src(config.paths.img)
+      .pipe(
+        imagemin([
+          imagemin.jpegtran({ progressive: true }),
+          imagemin.svgo({
+            plugins: [{ removeViewBox: false }, { cleanupIDs: false }],
+          }),
+        ]),
+      )
+      .pipe(gulp.dest(file => file.base));
   });
 
   /**
@@ -103,7 +105,7 @@ module.exports = (gulp, config) => {
   /**
    * Task for running browserSync.
    */
-  gulp.task('serve', ['css', 'scripts', 'styleguide-scripts', 'watch:pl'], () => {
+  gulp.task('serve', ['imagemin', 'css', 'scripts', 'styleguide-scripts', 'watch:pl'], () => {
     if (config.browserSync.domain) {
       browserSync.init({
         injectChanges: true,
@@ -127,6 +129,7 @@ module.exports = (gulp, config) => {
     }
     gulp.watch(config.paths.js, ['scripts', 'styleguide-scripts']).on('change', browserSync.reload);
     gulp.watch(`${config.paths.sass}/**/*.scss`, ['css']);
+    gulp.watch(config.paths.img, ['imagemin']);
     gulp.watch(config.patternLab.scssToYAML[0].src, ['pl:scss-to-yaml']);
   });
 
