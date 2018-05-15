@@ -6,9 +6,11 @@
     js: `${themeDir}/components/_patterns/**/*.js`,
     dist_js: `${themeDir}/dist`,
     sass: themeDir,
-    img: `${themeDir}/images`,
+    img: [
+      `${themeDir}/images/**/*`,
+      `${themeDir}/components/_patterns/**/*.{jpg, gif, png, svg}`,
+    ],
     dist_css: `${themeDir}/dist/css`,
-    dist_img: `${themeDir}/dist/img`,
     pattern_lab: `${themeDir}/pattern-lab/public`,
   };
 
