@@ -24,7 +24,7 @@ module.exports = (gulp, config) => {
   const svgSprite = require('gulp-svg-sprite');
 
   // deploy
-  const ghPages = require('gulp-gh-pages');
+  const ghpages = require('gh-pages');
 
   const tasks = {
     compile: [],
@@ -47,7 +47,7 @@ module.exports = (gulp, config) => {
     gulp.src(config.paths.js)
       .pipe(sourcemaps.init())
       .pipe(babel({
-        presets: ['env'],
+        presets: ['env', 'minify'],
       }))
       .pipe(sourcemaps.write(config.themeDir))
       .pipe(gulp.dest(config.paths.dist_js));
@@ -86,7 +86,7 @@ module.exports = (gulp, config) => {
   gulp.task('icons', () => {
     gulp.src('**/*.svg', { cwd: `${config.paths.img}/icons/src` })
       .pipe(svgSprite(config.iconConfig))
-      .pipe(gulp.dest(`${config.themeDir}/images/icons`));
+      .pipe(gulp.dest('.'));
   });
 
   tasks.compile.push('icons');
@@ -150,12 +150,16 @@ module.exports = (gulp, config) => {
   /**
    * Deploy
    */
-  // eslint-disable-next-line func-names, prefer-arrow-callback
-  gulp.task('ghpages-deploy', function () {
-    return gulp.src([
-      `${config.paths.dist_js}/**/*`,
-      `${config.paths.pattern_lab}/**/*`,
-    ], { base: config.themeDir })
-      .pipe(ghPages());
+  gulp.task('ghpages-deploy', () => {
+    // Create build directory.
+    gulp.src([`${config.paths.dist_js}/**/*`, `${config.paths.pattern_lab}/**/*`], { base: config.themeDir }).pipe(gulp.dest('build'));
+    // Publish the build directory to github pages.
+    ghpages.publish(`${config.themeDir}build`, (err) => {
+      if (err === undefined) {
+        console.log('Successfully deployed!');
+      } else {
+        console.log(err);
+      }
+    });
   });
 };
