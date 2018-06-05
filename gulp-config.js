@@ -36,7 +36,7 @@
       sourceComments: false,
       sourceMapEmbed: false,
       outputStyle: 'expanded',
-      autoPrefixerBrowsers: ['last 2 versions', 'IE >= 10'],
+      autoPrefixerBrowsers: ['last 2 versions', 'IE >= 11'],
       includePaths: ['./node_modules'],
     },
     iconConfig: {
