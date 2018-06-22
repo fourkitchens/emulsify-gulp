@@ -6,7 +6,7 @@
     js: `${themeDir}/components/_patterns/**/*.js`,
     dist_js: `${themeDir}/dist`,
     sass: themeDir,
-    icons: `${themeDir}/images`,
+    icons: `${themeDir}/images/icons/src`,
     img: [
       `${themeDir}/images/**/*`,
       `${themeDir}/components/_patterns/**/*.{jpg, gif, png, svg}`,
