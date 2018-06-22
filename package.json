@@ -1,7 +1,7 @@
 {
   "name": "emulsify-gulp",
   "description": "A collection of useful gulp tasks.",
-  "version": "2.2.0",
+  "version": "2.3.0",
   "scripts": {
     "lint": "eslint --ext .js .",
     "precommit": "npm run lint"
