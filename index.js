@@ -93,7 +93,7 @@ module.exports = (gulp, config) => {
    */
   gulp.task('icons', () => {
     gulp
-      .src('**/*.svg', { cwd: `${config.paths.img}/icons/src` })
+      .src('**/*.svg', { cwd: `${config.paths.icons}` })
       .pipe(svgSprite(config.iconConfig))
       .pipe(gulp.dest('.'));
   });
