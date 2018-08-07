@@ -47,7 +47,7 @@ module.exports = (gulp, config) => {
       .pipe(
         babel({
           presets: ['env', 'minify'],
-        }),
+        })
       )
       .pipe(sourcemaps.write(config.themeDir))
       .pipe(gulp.dest(config.paths.dist_js));
@@ -65,7 +65,7 @@ module.exports = (gulp, config) => {
           imagemin.svgo({
             plugins: [{ removeViewBox: false }, { cleanupIDs: false }],
           }),
-        ]),
+        ])
       )
       .pipe(gulp.dest(file => file.base));
   });
@@ -75,7 +75,7 @@ module.exports = (gulp, config) => {
    */
   gulp.task('icons', () => {
     gulp
-      .src('**/*.svg', { cwd: `${config.paths.img}/icons/src` })
+      .src('**/*.svg', { cwd: `${config.paths.icons}` })
       .pipe(svgSprite(config.iconConfig))
       .pipe(gulp.dest('.'));
   });
@@ -151,7 +151,7 @@ module.exports = (gulp, config) => {
           `${config.paths.pattern_lab}/**/*`,
           `${config.themeDir}/CNAME`,
         ],
-        { base: config.themeDir },
+        { base: config.themeDir }
       )
       .pipe(gulp.dest('build'));
     // Publish the build directory to github pages.
