@@ -88,6 +88,8 @@ module.exports = (gulp, config) => {
       .pipe(gulp.dest(file => file.base));
   });
 
+  tasks.compile.push('imagemin');
+
   /**
    * Task for generating icon colors/png fallbacks from svg.
    */
@@ -112,7 +114,7 @@ module.exports = (gulp, config) => {
   /**
    * Task for running browserSync.
    */
-  gulp.task('serve', ['imagemin', 'css', 'scripts', 'styleguide-scripts', 'watch:pl'], () => {
+  gulp.task('serve', ['css', 'scripts', 'styleguide-scripts', 'watch:pl'], () => {
     if (config.browserSync.domain) {
       browserSync.init({
         injectChanges: true,
@@ -136,7 +138,6 @@ module.exports = (gulp, config) => {
     }
     gulp.watch(config.paths.js, ['scripts', 'styleguide-scripts']).on('change', browserSync.reload);
     gulp.watch(`${config.paths.sass}/**/*.scss`, ['css']);
-    gulp.watch(config.paths.img, ['imagemin']);
     gulp.watch(config.patternLab.scssToYAML[0].src, ['pl:scss-to-yaml']);
   });
 

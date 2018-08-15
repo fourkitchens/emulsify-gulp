@@ -8,10 +8,9 @@ const cached = require('gulp-cached');
 const flatten = require('gulp-flatten');
 const gulpif = require('gulp-if');
 const cleanCSS = require('gulp-clean-css');
-const del = require('del');
 
 ((() => {
-  module.exports = (gulp, { cssConfig, debug }, { watch, validate, clean }, browserSync) => {
+  module.exports = (gulp, { cssConfig, debug }, { watch, validate }, browserSync) => {
     function cssCompile(done) {
       gulp.src(cssConfig.src)
         .pipe(sassGlob())
@@ -41,14 +40,6 @@ const del = require('del');
     }
 
     gulp.task('css', 'Compile Scss to CSS using Libsass with Autoprefixer and SourceMaps', cssCompile);
-
-    gulp.task('clean:css', 'Delete compiled CSS files', (done) => {
-      del([
-        `${cssConfig.dest}*.{css,css.map}`,
-      ]).then(() => {
-        done();
-      });
-    });
 
     gulp.task('validate:css', 'Lint Scss files', () => {
       let src = cssConfig.src;
@@ -81,7 +72,5 @@ const del = require('del');
     if (cssConfig.lint.enabled) {
       validate.push('validate:css');
     }
-
-    clean.push('clean:css');
   };
 }))();
