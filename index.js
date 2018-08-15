@@ -30,7 +30,6 @@ module.exports = (gulp, config) => {
     compile: [],
     watch: [],
     validate: [],
-    clean: [],
     default: [],
   };
 
@@ -147,7 +146,6 @@ module.exports = (gulp, config) => {
   gulp.task('theme', ['serve']);
 
   gulp.task('compile', tasks.compile);
-  gulp.task('clean', tasks.clean);
   gulp.task('validate', tasks.validate);
   gulp.task('watch', tasks.watch);
   tasks.default.push('watch');
@@ -156,7 +154,7 @@ module.exports = (gulp, config) => {
   /**
    * Theme task declaration
    */
-  gulp.task('build', ['imagemin', 'clean', 'scripts', 'styleguide-scripts', 'css', 'icons']);
+  gulp.task('build', ['imagemin', 'scripts', 'styleguide-scripts', 'css', 'icons']);
 
   /**
    * Deploy
