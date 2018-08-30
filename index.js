@@ -14,6 +14,9 @@ module.exports = (gulp, config) => {
   // eslint-disable-next-line no-redeclare, no-var
   var config = _.defaultsDeep(config, defaultConfig);
 
+  // scripts
+  const concat = require('gulp-concat');
+
   // Image Minification
   const imagemin = require('gulp-imagemin');
 
@@ -48,6 +51,21 @@ module.exports = (gulp, config) => {
           presets: ['env', 'minify'],
         })
       )
+      .pipe(sourcemaps.write(config.themeDir))
+      .pipe(gulp.dest(config.paths.dist_js));
+  });
+
+  gulp.task('styleguide-scripts', () => {
+    gulp
+      .src(config.paths.js)
+      .pipe(sourcemaps.init())
+      .pipe(
+        babel({
+          presets: ['env'],
+        })
+      )
+      // Concatenate everything within the JavaScript folder.
+      .pipe(concat('scripts-styleguide.js'))
       .pipe(sourcemaps.write(config.themeDir))
       .pipe(gulp.dest(config.paths.dist_js));
   });
@@ -95,7 +113,7 @@ module.exports = (gulp, config) => {
   /**
    * Task for running browserSync.
    */
-  gulp.task('serve', ['css', 'scripts', 'watch:pl'], () => {
+  gulp.task('serve', ['css', 'scripts', 'styleguide-scripts', 'watch:pl'], () => {
     if (config.browserSync.domain) {
       browserSync.init({
         injectChanges: true,
@@ -117,7 +135,7 @@ module.exports = (gulp, config) => {
         port: openPort,
       });
     }
-    gulp.watch(config.paths.js, ['scripts']).on('change', browserSync.reload);
+    gulp.watch(config.paths.js, ['scripts', 'styleguide-scripts']).on('change', browserSync.reload);
     gulp.watch(`${config.paths.sass}/**/*.scss`, ['css']);
     gulp.watch(config.patternLab.scssToYAML[0].src, ['pl:scss-to-yaml']);
   });
@@ -136,7 +154,7 @@ module.exports = (gulp, config) => {
   /**
    * Theme task declaration
    */
-  gulp.task('build', ['imagemin', 'scripts', 'css', 'icons']);
+  gulp.task('build', ['imagemin', 'scripts', 'styleguide-scripts', 'css', 'icons']);
 
   /**
    * Deploy
