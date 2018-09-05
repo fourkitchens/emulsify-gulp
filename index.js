@@ -136,7 +136,7 @@ module.exports = (gulp, config) => {
   /**
    * Theme task declaration
    */
-  gulp.task('build', ['imagemin', 'scripts', 'css', 'icons']);
+  gulp.task('build', ['compile', 'scripts', 'css']);
 
   /**
    * Deploy
