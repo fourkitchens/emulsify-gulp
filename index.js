@@ -148,6 +148,9 @@ module.exports = (gulp, config) => {
         [
           `${config.paths.dist_js}/**/*`,
           `${config.paths.pattern_lab}/**/*`,
+          `${config.paths.theme_images}/**/*`,
+          `!${config.paths.theme_images}/{icons,icons/**/*}`,
+          `${config.paths.logo}`,
           `${config.themeDir}/CNAME`,
         ],
         { base: config.themeDir }
