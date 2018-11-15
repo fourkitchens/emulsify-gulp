@@ -102,6 +102,7 @@ module.exports = (gulp, config) => {
         open: config.browserSync.openBrowserAtStart,
         proxy: config.browserSync.domain,
         startPath: config.browserSync.startPath,
+        ghostMode: config.browserSync.ghostMode
       });
     } else {
       browserSync.init({
@@ -115,6 +116,7 @@ module.exports = (gulp, config) => {
         open: config.browserSync.openBrowserAtStart,
         reloadOnRestart: config.browserSync.reloadOnRestart,
         port: openPort,
+        ghostMode: config.browserSync.ghostMode
       });
     }
     gulp.watch(config.paths.js, ['scripts']).on('change', browserSync.reload);
