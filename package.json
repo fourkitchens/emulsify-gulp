@@ -40,6 +40,7 @@
     "ngrok": "^2.2.2",
     "node-normalize-scss": "^3.0.0",
     "node-notifier": "^5.1.2",
+    "pa11y": "^5.1.0",
     "portscanner": "^2.1.1",
     "pre-commit": "^1.2.2",
     "psi": "^3.0.0",
