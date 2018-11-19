@@ -10,10 +10,7 @@ module.exports = (gulp, config) => {
   const babel = require('gulp-babel');
   const sourcemaps = require('gulp-sourcemaps');
   const defaultConfig = require('./gulp-config');
-  const fs = require('fs');
-  const pa11y = require('pa11y');
-  // eslint-disable-next-line
-  const pa11yCli = require('pa11y-reporter-cli');
+  const pa11y = require('./gulp-tasks/pa11y');
 
   // eslint-disable-next-line no-redeclare, no-var
   var config = _.defaultsDeep(config, defaultConfig);
@@ -87,65 +84,6 @@ module.exports = (gulp, config) => {
 
   tasks.compile.push('icons');
 
-  /**
-   * Accessibility Testing
-   */
-  function pa11yRun(pa11yUrl) {
-    pa11y(pa11yUrl, {
-      includeNotices: true,
-      includeWarnings: true,
-      ignore: [
-        'WCAG2AA.Principle2.Guideline2_4.2_4_2.H25.2',
-        'WCAG2AA.Principle2.Guideline2_4.2_4_2.H25.1.NoTitleEl',
-        'WCAG2AA.Principle3.Guideline3_1.3_1_1.H57.2',
-      ]
-    }).then((results) => {
-      if (results.issues === undefined || results.issues.length < 1) {
-        console.log('[pa11y] No accessibility issues found!');
-      } else {
-        console.log(pa11yCli.results(results));
-      }
-    });
-  }
-
-  function pa11yTest(path) {
-    // Accessibility.
-    const localUrl = browserSync.getOption('urls').get('local');
-    const filePath = path;
-    // Get path past ../_patterns/.
-    const pLPath = filePath.split('_patterns/').pop();
-    // Change remaining path to array.
-    const fileArray = pLPath.split('/');
-
-    // Below is specific to scss files.
-    // Remove last item (get file itself).
-    const fileArrayLast = fileArray.pop();
-    // Get file extension.
-    const fileExtension = fileArrayLast.split('.').pop();
-    if (fileExtension === 'scss') {
-      const fileDir = `${filePath.split('_patterns/')[0]}_patterns/${fileArray.join('/')}`;
-      fs.readdir(fileDir, (err, items) => {
-        items.forEach((item) => {
-          if (item.split('.').pop() === 'twig') {
-            // Change array to string separated by dash.
-            const twigFilePath = `${fileDir}/${item}`;
-            const twigFilePlPath = twigFilePath.split('_patterns/').pop();
-            const filetoArray = twigFilePlPath.split('/');
-            const arraytoPath = filetoArray.join('-');
-            const arraytoPathTweak = arraytoPath.slice(0, -5);
-            pa11yRun(`${localUrl}patterns/${arraytoPathTweak}/${arraytoPathTweak}.html`);
-          }
-        });
-      });
-    } else {
-      // Change array to string separated by dash.
-      const arraytoPath = fileArray.join('-');
-      // Remove file extension.
-      const arraytoPathTweak = arraytoPath.slice(0, -5);
-      pa11yRun(`${localUrl}patterns/${arraytoPathTweak}/${arraytoPathTweak}.html`);
-    }
-  }
-
   // Find open port using portscanner.
   let openPort = '';
   portscanner.findAPortNotInUse(3000, 3010, '127.0.0.1', (error, port) => {
@@ -180,12 +118,9 @@ module.exports = (gulp, config) => {
         port: openPort,
       });
     }
-    gulp.watch(config.paths.js, ['scripts']).on('change', (event) => {
-      browserSync.reload();
-      pa11yTest(event.path);
-    });
+    gulp.watch(config.paths.js, ['scripts']);
     gulp.watch(`${config.paths.sass}/**/*.scss`, ['css']).on('change', (event) => {
-      pa11yTest(event.path);
+      pa11y.pa11yTest(event.path, browserSync, config);
     });
     gulp.watch(config.patternLab.scssToYAML[0].src, ['pl:scss-to-yaml']);
   });

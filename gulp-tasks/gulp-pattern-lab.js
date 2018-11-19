@@ -4,9 +4,7 @@ const notifier = require('./notifier.js');
 const path = require('path');
 const yaml = require('js-yaml');
 const fs = require('fs');
-const pa11y = require('pa11y');
-// eslint-disable-next-line
-const pa11yCli = require('pa11y-reporter-cli');
+const pa11y = require('./pa11y');
 
 ((() => {
   module.exports = (gulp, config, { watch, compile }, browserSync) => {
@@ -41,27 +39,7 @@ const pa11yCli = require('pa11y-reporter-cli');
           }
         });
         // Accessibility.
-        const localUrl = browserSync.getOption('urls').get('local');
-        const filePath = event.path;
-        const pLPath = filePath.split('_patterns/').pop();
-        const filetoArray = pLPath.split('/');
-        const arraytoPath = filetoArray.join('-');
-        const arraytoPathTweak = arraytoPath.slice(0, -5);
-        const pa11yUrl = `${localUrl}patterns/${arraytoPathTweak}/${arraytoPathTweak}.html`;
-        pa11y(pa11yUrl, {
-          includeWarnings: true,
-          ignore: [
-            'WCAG2AA.Principle2.Guideline2_4.2_4_2.H25.2',
-            'WCAG2AA.Principle2.Guideline2_4.2_4_2.H25.1.NoTitleEl',
-            'WCAG2AA.Principle3.Guideline3_1.3_1_1.H57.2',
-          ]
-        }).then((results) => {
-          if (results.issues === undefined || results.issues.length < 1) {
-            console.log('[pa11y] No accessibility issues found!');
-          } else {
-            console.log(pa11yCli.results(results));
-          }
-        });
+        pa11y.pa11yTest(event.path, browserSync, config);
       });
     });
 
