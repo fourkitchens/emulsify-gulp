@@ -3,18 +3,28 @@ const pa11y = require('pa11y');
 // eslint-disable-next-line
 const pa11yCli = require('pa11y-reporter-cli');
 
-function pa11yRun(pa11yUrl, config) {
-  pa11y(pa11yUrl, {
-    includeNotices: config.pa11y.includeNotices,
-    includeWarnings: config.pa11y.includeWarnings,
-    ignore: config.pa11y.ignore
-  }).then((results) => {
-    if (results.issues === undefined || results.issues.length < 1) {
-      console.log('[pa11y] No accessibility issues found!');
-    } else {
-      console.log(pa11yCli.results(results));
-    }
-  });
+// function pa11yRun(pa11yUrl, config) {
+//
+// }
+
+async function pa11yRun(pa11yUrl, config) {
+  try {
+    await pa11y(pa11yUrl, {
+      includeNotices: config.pa11y.includeNotices,
+      includeWarnings: config.pa11y.includeWarnings,
+      ignore: config.pa11y.ignore
+    }).then((results) => {
+      if (results.issues === undefined || results.issues.length < 1) {
+        console.log('[pa11y] No accessibility issues found!');
+      } else {
+        console.log(pa11yCli.results(results));
+      }
+    });
+    // Do something with the results
+  } catch (error) {
+    // Handle the error
+    console.log(error);
+  }
 }
 
 /**
@@ -39,7 +49,7 @@ function pa11yTest(path, browserSync, config) {
 
     fs.readdir(fileDir, (err, items) => {
       items.forEach((item) => {
-        if (item.split('.').pop() === 'twig') {
+        if (item.split('.').pop() === 'twig' && item.charAt(0) !== '_') {
           // Change array to string separated by dash.
           const twigFilePath = `${fileDir}/${item}`;
           const twigFilePlPath = twigFilePath.split('_patterns/').pop();
@@ -47,7 +57,6 @@ function pa11yTest(path, browserSync, config) {
           const arraytoPath = filetoArray.join('-');
           const arraytoPathTweak = arraytoPath.slice(0, -5);
           const pa11yPath = `${localUrl}patterns/${arraytoPathTweak}/${arraytoPathTweak}.html`;
-          console.log(`Running accessibility tests on ${pa11yPath}`);
           pa11yRun(pa11yPath, config);
         }
       });
