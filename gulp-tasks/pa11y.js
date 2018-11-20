@@ -12,7 +12,13 @@ async function pa11yRun(pa11yUrl, config) {
     await pa11y(pa11yUrl, {
       includeNotices: config.pa11y.includeNotices,
       includeWarnings: config.pa11y.includeWarnings,
-      ignore: config.pa11y.ignore
+      ignore: config.pa11y.ignore,
+      hideElements: config.pa11y.hideElements,
+      rootElement: config.pa11y.rootElement,
+      rules: config.pa11y.rules,
+      standard: config.pa11y.standard,
+      wait: config.pa11y.wait,
+      actions: config.pa11y.actions,
     }).then((results) => {
       if (results.issues === undefined || results.issues.length < 1) {
         console.log('[pa11y] No accessibility issues found!');
