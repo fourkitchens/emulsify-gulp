@@ -1,9 +1,9 @@
 /* globals require, process */
 const _ = require('lodash');
-const notifier = require('./notifier.js');
 const path = require('path');
 const yaml = require('js-yaml');
 const fs = require('fs');
+const notifier = require('./notifier.js');
 const pa11y = require('./pa11y');
 
 ((() => {
@@ -48,7 +48,9 @@ const pa11y = require('./pa11y');
     if (config.patternLab.scssToYAML) {
       // turns scss files full of variables into yaml files that PL can iterate on
       gulp.task('pl:scss-to-yaml', (done) => {
-        config.patternLab.scssToYAML.forEach(({ src, lineStartsWith, allowVarValues, dest }) => {
+        config.patternLab.scssToYAML.forEach(({
+          src, lineStartsWith, allowVarValues, dest
+        }) => {
           const scssVarList = _.filter(fs.readFileSync(src, 'utf8').split('\n'), item => _.startsWith(item, lineStartsWith));
 
           let varsAndValues = _.map(scssVarList, (item) => {

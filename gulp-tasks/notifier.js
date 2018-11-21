@@ -1,6 +1,6 @@
 /* globals require, process */
 
-const exec = require('child_process').exec;
+const [exec] = require('child_process').exec;
 const notifier = require('node-notifier');
 
 ((() => {

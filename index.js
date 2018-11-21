@@ -159,8 +159,10 @@ module.exports = (gulp, config) => {
     // Publish the build directory to github pages.
     ghpages.publish(`${config.themeDir}build`, (err) => {
       if (err === undefined) {
+        // eslint-disable-next-line no-console
         console.log('Successfully deployed!');
       } else {
+        // eslint-disable-next-line no-console
         console.log(err);
       }
     });

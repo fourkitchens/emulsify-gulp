@@ -42,7 +42,7 @@ const cleanCSS = require('gulp-clean-css');
     gulp.task('css', 'Compile Scss to CSS using Libsass with Autoprefixer and SourceMaps', cssCompile);
 
     gulp.task('validate:css', 'Lint Scss files', () => {
-      let src = cssConfig.src;
+      let [src] = cssConfig.src;
       if (cssConfig.lint.extraSrc) {
         src = src.concat(cssConfig.lint.extraSrc);
       }

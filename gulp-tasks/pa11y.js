@@ -17,16 +17,21 @@ async function pa11yRun(pa11yUrl, config) {
       actions: config.pa11y.actions,
     }).then((results) => {
       if (results.issues === undefined || results.issues.length < 1) {
+        // eslint-disable-next-line no-console
         console.log('[pa11y] No accessibility issues found!');
       } else {
+        // eslint-disable-next-line no-console
         console.log(pa11yCli.results(results));
         if (config.pa11y.includeNotices === true) {
+          // eslint-disable-next-line no-console
           console.log('Note: pa11y notices are enabled by default. To disable notices, edit local.gulp-config.js and set "includeNotices" to false.');
         }
         if (config.pa11y.includeWarnings === true) {
+          // eslint-disable-next-line no-console
           console.log('Note: pa11y warnings are enabled by default. To disable warnings, edit local.gulp-config.js and set "includeWarnings" to false.');
         }
         if (config.pa11y.includeNotices === true || config.pa11y.includeWarnings === true) {
+          // eslint-disable-next-line no-console
           console.log('See https://github.com/fourkitchens/emulsify/wiki/Gulp-Config for details.');
         }
       }
@@ -34,6 +39,7 @@ async function pa11yRun(pa11yUrl, config) {
     // Do something with the results
   } catch (error) {
     // Handle the error
+    // eslint-disable-next-line no-console
     console.log(error);
   }
 }
