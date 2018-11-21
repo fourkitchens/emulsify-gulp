@@ -71,8 +71,9 @@
       enabled: true,
       baseDir: './',
       startPath: 'pattern-lab/public/',
-      // Uncomment below if using a specific local url
-      // domain: 'emulsify.dev',
+      // Uncomment proxy and host below if using a specific local url.
+      // proxy: 'mysite.dev',
+      // host: 'mysite.dev',
       notify: false,
       openBrowserAtStart: false,
       reloadOnRestart: true,

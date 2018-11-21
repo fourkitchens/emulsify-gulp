@@ -97,12 +97,16 @@ module.exports = (gulp, config) => {
    * Task for running browserSync.
    */
   gulp.task('serve', ['css', 'scripts', 'watch:pl'], () => {
-    if (config.browserSync.domain) {
+    if (config.browserSync.proxy && config.browserSync.host) {
+      console.log('Using proxy and host!')
       browserSync.init({
         injectChanges: true,
         open: config.browserSync.openBrowserAtStart,
-        proxy: config.browserSync.domain,
+        proxy: config.browserSync.proxy,
+        host: config.browserSync.host,
         startPath: config.browserSync.startPath,
+        notify: config.browserSync.notify,
+        baseDir: config.browserSync.baseDir,
       });
     } else {
       browserSync.init({
