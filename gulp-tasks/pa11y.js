@@ -3,10 +3,6 @@ const pa11y = require('pa11y');
 // eslint-disable-next-line
 const pa11yCli = require('pa11y-reporter-cli');
 
-// function pa11yRun(pa11yUrl, config) {
-//
-// }
-
 async function pa11yRun(pa11yUrl, config) {
   try {
     await pa11y(pa11yUrl, {
