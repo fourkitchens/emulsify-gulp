@@ -54,25 +54,28 @@ function pa11yTest(path, browserSync, config) {
   // Remove filename (just want directory).
   fileArray.splice(-1, 1);
 
-  // CSS returns a couple of paths and causes duplication.
-  if (filePath.split('/').includes('pattern-lab')) {
-    const fileDir = `${filePath.split('_patterns/')[0]}_patterns/${fileArray.join('/')}`;
+  // Make sure it's not the head/foot file, e.g..
+  if (fileArray.includes('_patterns')) {
+    // CSS returns a couple of paths and causes duplication.
+    if (filePath.split('/').includes('pattern-lab')) {
+      const fileDir = `${filePath.split('_patterns/')[0]}_patterns/${fileArray.join('/')}`;
 
-    fs.readdir(fileDir, (err, items) => {
-      items.forEach((item) => {
-        // Select components based on YAML files.
-        if (item.split('.').pop() === 'yml') {
-          // Change array to string separated by dash.
-          const twigFilePath = `${fileDir}/${item}`;
-          const twigFilePlPath = twigFilePath.split('_patterns/').pop();
-          const filetoArray = twigFilePlPath.split('/');
-          const arraytoPath = filetoArray.join('-');
-          const arraytoPathTweak = arraytoPath.replace('~', '-').slice(0, -4);
-          const pa11yPath = `${localUrl}patterns/${arraytoPathTweak}/${arraytoPathTweak}.html`;
-          pa11yRun(pa11yPath, config);
-        }
+      fs.readdir(fileDir, (err, items) => {
+        items.forEach((item) => {
+          // Select components based on YAML files.
+          if (item.split('.').pop() === 'yml') {
+            // Change array to string separated by dash.
+            const twigFilePath = `${fileDir}/${item}`;
+            const twigFilePlPath = twigFilePath.split('_patterns/').pop();
+            const filetoArray = twigFilePlPath.split('/');
+            const arraytoPath = filetoArray.join('-');
+            const arraytoPathTweak = arraytoPath.replace('~', '-').slice(0, -4);
+            const pa11yPath = `${localUrl}patterns/${arraytoPathTweak}/${arraytoPathTweak}.html`;
+            pa11yRun(pa11yPath, config);
+          }
+        });
       });
-    });
+    }
   }
 }
 
