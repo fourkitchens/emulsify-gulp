@@ -10,6 +10,7 @@ module.exports = (gulp, config) => {
   const babel = require('gulp-babel');
   const sourcemaps = require('gulp-sourcemaps');
   const defaultConfig = require('./gulp-config');
+  const pa11y = require('./gulp-tasks/pa11y');
 
   // eslint-disable-next-line no-redeclare, no-var
   var config = _.defaultsDeep(config, defaultConfig);
@@ -83,14 +84,14 @@ module.exports = (gulp, config) => {
 
   tasks.compile.push('icons');
 
-  // Pattern Lab
-  require('./gulp-tasks/gulp-pattern-lab.js')(gulp, config, tasks, browserSync);
-
   // Find open port using portscanner.
   let openPort = '';
   portscanner.findAPortNotInUse(3000, 3010, '127.0.0.1', (error, port) => {
     openPort = port;
   });
+
+  // Pattern Lab
+  require('./gulp-tasks/gulp-pattern-lab.js')(gulp, config, tasks, browserSync, openPort);
 
   /**
    * Task for running browserSync.
@@ -119,8 +120,10 @@ module.exports = (gulp, config) => {
         ghostMode: config.browserSync.ghostMode
       });
     }
-    gulp.watch(config.paths.js, ['scripts']).on('change', browserSync.reload);
-    gulp.watch(`${config.paths.sass}/**/*.scss`, ['css']);
+    gulp.watch(config.paths.js, ['scripts']);
+    gulp.watch(`${config.paths.sass}/**/*.scss`, ['css']).on('change', (event) => {
+      pa11y.pa11yTest(event.path, browserSync, config);
+    });
     gulp.watch(config.patternLab.scssToYAML[0].src, ['pl:scss-to-yaml']);
   });
 
@@ -138,7 +141,7 @@ module.exports = (gulp, config) => {
   /**
    * Theme task declaration
    */
-  gulp.task('build', ['imagemin', 'scripts', 'css', 'icons']);
+  gulp.task('build', ['compile', 'scripts', 'css']);
 
   /**
    * Deploy

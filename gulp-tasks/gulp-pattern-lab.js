@@ -4,6 +4,7 @@ const notifier = require('./notifier.js');
 const path = require('path');
 const yaml = require('js-yaml');
 const fs = require('fs');
+const pa11y = require('./pa11y');
 
 ((() => {
   module.exports = (gulp, config, { watch, compile }, browserSync) => {
@@ -37,6 +38,8 @@ const fs = require('fs');
             browserSync.reload('*.html');
           }
         });
+        // Accessibility.
+        pa11y.pa11yTest(event.path, browserSync, config);
       });
     });
 
