@@ -17,7 +17,7 @@ const wpt = require('webpagetest');
     //
     // http://tldp.org/LDP/abs/html/exit-status.html
     // -----------------------------------------------------------------------------
-    gulp.task('psi', 'Performance: PageSpeed Insights', () => {
+    gulp.task('psi', gulp.series(() => {
       // Set up a public tunnel so PageSpeed can see the local site.
       ngrok.connect(3000, (errNgrok, url) => {
         // eslint-disable-next-line no-console
@@ -39,7 +39,9 @@ const wpt = require('webpagetest');
           process.exit(0);
         });
       });
-    });
+    }));
+    const psiTest = gulp.task('psi');
+    psiTest.description = 'Performance: PageSpeed Insights';
 
     // -----------------------------------------------------------------------------
     // Performance test: WebPageTest.org
@@ -47,7 +49,7 @@ const wpt = require('webpagetest');
     // Initializes a public tunnel so the PageSpeed service can access your local
     // site, then it tests the site. This task outputs the standard PageSpeed results.
     // -----------------------------------------------------------------------------
-    gulp.task('wpt', 'Performance: WebPageTest.org', () => {
+    gulp.task('wpt', gulp.series(() => {
       if (config.wpt.key && config.wpt.key !== null) {
         const wptTest = wpt('www.webpagetest.org', config.wpt.key);
 
@@ -82,8 +84,12 @@ const wpt = require('webpagetest');
         // eslint-disable-next-line no-console
         console.log('Missing wptkey env variable.');
       }
-    });
+    }));
+    const wptTest = gulp.task('wpt');
+    wptTest.description = 'Performance: WebPageTest.org';
 
-    gulp.task('qa', 'Run all quality checks and tests.', ['psi', 'wpt']);
+    gulp.task('qa', gulp.series(['psi', 'wpt']));
+    const qaTests = gulp.task('qa');
+    qaTests.description = 'Run all quality checks and tests.';
   };
 }))();

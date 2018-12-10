@@ -25,7 +25,9 @@ const pa11y = require('./pa11y');
       });
     }
 
-    gulp.task('pl', 'Compile Pattern Lab', plBuild);
+    gulp.task('pl', plBuild);
+    const runPl = gulp.task('pl');
+    runPl.description = 'Compile Pattern Lab';
 
     const watchedExtensions = config.patternLab.watchedExtensions.join(',');
     gulp.task('watch:pl', () => {
