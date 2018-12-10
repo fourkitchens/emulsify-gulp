@@ -13,6 +13,8 @@
     ],
     dist_css: `${themeDir}/dist/css`,
     pattern_lab: `${themeDir}/pattern-lab/public`,
+    theme_images: `${themeDir}/images`,
+    logo: `${themeDir}/logo.png`,
   };
 
   module.exports = {
