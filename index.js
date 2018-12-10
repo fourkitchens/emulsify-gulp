@@ -96,7 +96,7 @@ module.exports = (gulp, config) => {
   /**
    * Task for running browserSync.
    */
-  gulp.task('serve', gulp.series(gulp.parallel('css', 'scripts', 'watch:pl'), () => {
+  gulp.task('serve', ['css', 'scripts', 'watch:pl'], () => {
     if (config.browserSync.domain) {
       browserSync.init({
         injectChanges: true,
@@ -123,23 +123,23 @@ module.exports = (gulp, config) => {
       pa11y.pa11yTest(event.path, browserSync, config);
     });
     gulp.watch(config.patternLab.scssToYAML[0].src, ['pl:scss-to-yaml']);
-  }));
+  });
 
   /**
    * Theme task declaration
    */
-  gulp.task('theme', gulp.series('serve'));
+  gulp.task('theme', ['serve']);
 
-  gulp.task('compile', gulp.series(tasks.compile));
-  gulp.task('validate', gulp.series(tasks.validate));
-  gulp.task('watch', gulp.series(tasks.watch));
+  gulp.task('compile', tasks.compile);
+  gulp.task('validate', tasks.validate);
+  gulp.task('watch', tasks.watch);
   tasks.default.push('watch');
-  gulp.task('default', gulp.series(tasks.default));
+  gulp.task('default', tasks.default);
 
   /**
    * Theme task declaration
    */
-  gulp.task('build', gulp.series(gulp.parallel('compile', 'scripts', 'css')));
+  gulp.task('build', ['compile', 'scripts', 'css']);
 
   /**
    * Deploy

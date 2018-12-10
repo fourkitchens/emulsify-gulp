@@ -12,19 +12,18 @@
     "babel-preset-minify": "^0.5.0",
     "breakpoint-sass": "^2.7.0",
     "browser-sync": "^2.11.0",
-    "clone": "^2.1.2",
     "del": "^3.0.0",
     "eslint": "^5.9.0",
     "gh-pages": "^2.0.1",
     "glob": "^7.0.3",
-    "gulp": "^4.0.0",
+    "gulp": "^3.9.1",
     "gulp-autoprefixer": "^6.0.0",
     "gulp-babel": "^8.0.0",
     "gulp-cached": "^1.1.0",
     "gulp-clean-css": "^4.0.0",
     "gulp-concat": "^2.6.0",
     "gulp-flatten": "^0.4.0",
-    "gulp-help": "github:chmontgomery/gulp-help#gulp4",
+    "gulp-help": "^1.6.1",
     "gulp-if": "^2.0.1",
     "gulp-imagemin": "^5.0.3",
     "gulp-notify": "^3.0.0",
@@ -41,6 +40,7 @@
     "ngrok": "^3.1.0",
     "node-normalize-scss": "^8.0.0",
     "node-notifier": "^5.1.2",
+    "node-sass": "^4.10.0",
     "pa11y": "^5.1.0",
     "portscanner": "^2.1.1",
     "pre-commit": "^1.2.2",
@@ -51,7 +51,7 @@
   },
   "devDependencies": {
     "eslint-config-airbnb-base": "^13.1.0",
-    "eslint-plugin-import": "^2.7.0"
+    "eslint-plugin-import": "^2.14.0"
   },
   "pre-commit": "lint",
   "engines": {

@@ -39,11 +39,9 @@ const cleanCSS = require('gulp-clean-css');
         });
     }
 
-    gulp.task('css', gulp.series(cssCompile));
-    const cssTask = gulp.task('css');
-    cssTask.description = 'Compile Scss to CSS using Libsass with Autoprefixer and SourceMaps';
+    gulp.task('css', 'Compile Scss to CSS using Libsass with Autoprefixer and SourceMaps', cssCompile);
 
-    gulp.task('validate:css', gulp.series(() => {
+    gulp.task('validate:css', 'Lint Scss files', () => {
       let [src] = cssConfig.src;
       if (cssConfig.lint.extraSrc) {
         src = src.concat(cssConfig.lint.extraSrc);
@@ -55,9 +53,7 @@ const cleanCSS = require('gulp-clean-css');
             formatter: 'string', console: true,
           }],
         }));
-    }));
-    const cssValidate = gulp.task('validate:css');
-    cssValidate.description = 'Lint Scss files';
+    });
 
     gulp.task('watch:css', () => {
       const tasks = ['css'];
