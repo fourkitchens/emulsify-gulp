@@ -170,5 +170,5 @@ module.exports = (gulp, config) => {
     });
   });
 
-  gulp.task('ghpages-deploy', gulp.series('createBuild', 'githubPublish'));
+  gulp.task('ghpages-deploy', ['createBuild', 'githubPublish']);
 };
