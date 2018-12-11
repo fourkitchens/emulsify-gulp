@@ -1,11 +1,11 @@
 /* globals require, process */
 
-const exec = require('child_process').exec;
+const exec = require('child_process');
 const notifier = require('node-notifier');
 
 ((() => {
   function sh(cmd, exitOnError, cb) {
-    const child = exec(cmd, { encoding: 'utf8' });
+    const child = exec.exec(cmd, { encoding: 'utf8' });
     let stdout = '';
     // eslint-disable-next-line no-unused-vars
     let stderr = '';

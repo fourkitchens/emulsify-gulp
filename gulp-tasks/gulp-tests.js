@@ -19,7 +19,7 @@ const wpt = require('webpagetest');
     // -----------------------------------------------------------------------------
     gulp.task('psi', 'Performance: PageSpeed Insights', () => {
       // Set up a public tunnel so PageSpeed can see the local site.
-      ngrok.connect(4000, (errNgrok, url) => {
+      ngrok.connect(3000, (errNgrok, url) => {
         // eslint-disable-next-line no-console
         console.log(`ngrok - serving your site from ${url}`);
 
