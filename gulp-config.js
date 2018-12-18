@@ -28,13 +28,25 @@
       },
     },
     cssConfig: {
-      enabled: true,
       src: `${themeDir}/components/_patterns/**/*.scss`,
       dest: `${themeDir}/dist/`,
       flattenDestOutput: true,
       lint: {
         enabled: false,
         failOnError: true,
+      },
+      cleanCSS: {
+        enabled: true,
+        options: {
+          compatibility: '*',
+          format: false,
+          inline: 'local',
+          inlineTimeout: 5000,
+          level: 1,
+          rebase: true,
+          sourceMap: false,
+          sourceMapInlineSources: false
+        }
       },
       sourceComments: false,
       sourceMapEmbed: false,
