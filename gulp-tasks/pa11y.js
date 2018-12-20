@@ -65,19 +65,21 @@ function pa11yTest(path, browserSync, config) {
     const fileDir = `${filePath.split('_patterns/')[0]}_patterns/${fileArray.join('/')}`;
 
     fs.readdir(fileDir, (err, items) => {
-      items.forEach((item) => {
-        // Select components based on YAML files.
-        if (item.split('.').pop() === 'yml') {
-          // Change array to string separated by dash.
-          const twigFilePath = `${fileDir}/${item}`;
-          const twigFilePlPath = twigFilePath.split('_patterns/').pop();
-          const filetoArray = twigFilePlPath.split('/');
-          const arraytoPath = filetoArray.join('-');
-          const arraytoPathTweak = arraytoPath.replace('~', '-').slice(0, -4);
-          const pa11yPath = `${localUrl}patterns/${arraytoPathTweak}/${arraytoPathTweak}.html`;
-          pa11yRun(pa11yPath, config);
-        }
-      });
+      if (items) {
+        items.forEach((item) => {
+          // Select components based on YAML files.
+          if (item.split('.').pop() === 'yml') {
+            // Change array to string separated by dash.
+            const twigFilePath = `${fileDir}/${item}`;
+            const twigFilePlPath = twigFilePath.split('_patterns/').pop();
+            const filetoArray = twigFilePlPath.split('/');
+            const arraytoPath = filetoArray.join('-');
+            const arraytoPathTweak = arraytoPath.replace('~', '-').slice(0, -4);
+            const pa11yPath = `${localUrl}patterns/${arraytoPathTweak}/${arraytoPathTweak}.html`;
+            pa11yRun(pa11yPath, config);
+          }
+        });
+      }
     });
   }
 }
