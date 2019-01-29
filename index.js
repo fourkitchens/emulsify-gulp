@@ -96,7 +96,7 @@ module.exports = (gulp, config) => {
   /**
    * Task for running browserSync.
    */
-  gulp.task('serve', ['css', 'scripts', 'watch:pl'], () => {
+  gulp.task('theme', ['css', 'scripts', 'watch:pl'], () => {
     if (config.browserSync.domain) {
       browserSync.init({
         injectChanges: true,
@@ -127,20 +127,12 @@ module.exports = (gulp, config) => {
     gulp.watch(config.patternLab.scssToYAML[0].src, ['pl:scss-to-yaml']);
   });
 
-  /**
-   * Theme task declaration
-   */
-  gulp.task('theme', ['serve']);
-
   gulp.task('compile', tasks.compile);
   gulp.task('validate', tasks.validate);
   gulp.task('watch', tasks.watch);
   tasks.default.push('watch');
   gulp.task('default', tasks.default);
 
-  /**
-   * Theme task declaration
-   */
   gulp.task('build', ['compile', 'scripts', 'css']);
 
   /**
