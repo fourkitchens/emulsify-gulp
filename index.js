@@ -103,7 +103,14 @@ module.exports = (gulp, config) => {
         open: config.browserSync.openBrowserAtStart,
         proxy: config.browserSync.domain,
         startPath: config.browserSync.startPath,
-        ghostMode: config.browserSync.ghostMode
+        ghostMode: config.browserSync.ghostMode,
+        callbacks: {
+          ready: () => {
+            console.log('--------------------------------------------');
+            console.log('Emulsify is Running! (Ctrl-C to Exit Server)');
+            console.log('--------------------------------------------');
+          }
+        }
       });
     } else {
       browserSync.init({
@@ -117,7 +124,14 @@ module.exports = (gulp, config) => {
         open: config.browserSync.openBrowserAtStart,
         reloadOnRestart: config.browserSync.reloadOnRestart,
         port: openPort,
-        ghostMode: config.browserSync.ghostMode
+        ghostMode: config.browserSync.ghostMode,
+        callbacks: {
+          ready: () => {
+            console.log('--------------------------------------------');
+            console.log('Emulsify is Running! (Ctrl-C to Exit Server)');
+            console.log('--------------------------------------------');
+          }
+        }
       });
     }
     gulp.watch(config.paths.js, ['scripts']);
