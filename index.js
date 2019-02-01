@@ -47,6 +47,8 @@ module.exports = (gulp, config) => {
       .pipe(
         babel({
           presets: ['env', 'minify'],
+        }).on('error', (err) => {
+          console.log(err);
         })
       )
       .pipe(sourcemaps.write(config.themeDir))
