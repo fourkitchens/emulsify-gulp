@@ -46,7 +46,7 @@ module.exports = (gulp, config) => {
       .pipe(sourcemaps.init())
       .pipe(
         babel({
-          presets: ['env', 'minify'],
+          presets: ['@babel/present-env', 'minify'],
         }).on('error', (err) => {
           console.log(err);
         })
