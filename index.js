@@ -44,11 +44,7 @@ module.exports = (gulp, config) => {
     gulp
       .src(config.paths.js)
       .pipe(sourcemaps.init())
-      .pipe(
-        babel({
-          presets: ['env', 'minify'],
-        })
-      )
+      .pipe(babel())
       .pipe(sourcemaps.write(config.themeDir))
       .pipe(gulp.dest(config.paths.dist_js));
   });

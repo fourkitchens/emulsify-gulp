@@ -3,7 +3,10 @@
 (() => {
   const themeDir = './';
   const paths = {
-    js: `${themeDir}/components/_patterns/**/*.js`,
+    js: [
+      `${themeDir}/components/_patterns/**/*.js`,
+      `${themeDir}/components/js/reload-scripts.js`
+    ],
     dist_js: `${themeDir}/dist`,
     sass: themeDir,
     icons: `${themeDir}/images/icons/src`,
