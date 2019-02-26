@@ -41,7 +41,7 @@ module.exports = (gulp, config) => {
    * Script Task
    */
   gulp.task('scripts', () => {
-    gulp
+    return gulp
       .src(config.paths.js)
       .pipe(sourcemaps.init())
       .pipe(
@@ -57,7 +57,7 @@ module.exports = (gulp, config) => {
    * Task for minifying images.
    */
   gulp.task('imagemin', () => {
-    gulp
+    return gulp
       .src(config.paths.img)
       .pipe(
         imagemin([
@@ -76,7 +76,7 @@ module.exports = (gulp, config) => {
    * Task for generating icon colors/png fallbacks from svg.
    */
   gulp.task('icons', () => {
-    gulp
+    return gulp
       .src('**/*.svg', { cwd: `${config.paths.icons}` })
       .pipe(svgSprite(config.iconConfig))
       .pipe(gulp.dest('.'));
