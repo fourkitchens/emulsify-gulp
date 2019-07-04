@@ -8,9 +8,10 @@ const cached = require('gulp-cached');
 const flatten = require('gulp-flatten');
 const gulpif = require('gulp-if');
 const cleanCSS = require('gulp-clean-css');
+const _ = require('lodash');
 
 ((() => {
-  module.exports = (gulp, { cssConfig, debug }, { watch, validate }, browserSync) => {
+  module.exports = (gulp, { cssConfig, debug, sassOptions }, { watch, validate }, browserSync) => {
     function cssCompile(done) {
       gulp.src(cssConfig.src)
         .pipe(sassGlob())
@@ -21,12 +22,12 @@ const cleanCSS = require('gulp-clean-css');
           }],
         }))
         .pipe(sourcemaps.init({ debug }))
-        .pipe(sass({
+        .pipe(sass(_.defaultsDeep({
           outputStyle: cssConfig.outputStyle,
           sourceComments: cssConfig.sourceComments,
           // eslint-disable-next-line global-require
           includePaths: require('node-normalize-scss').with(cssConfig.includePaths),
-        }).on('error', sass.logError))
+        }, sassOptions || {})).on('error', sass.logError))
         .pipe(prefix(cssConfig.autoPrefixerBrowsers))
         .pipe(sourcemaps.init())
         .pipe(gulpif(cssConfig.cleanCSS.enabled === true, cleanCSS({
