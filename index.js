@@ -131,17 +131,11 @@ module.exports = (gulp, config) => {
    * Theme task declaration
    */
   gulp.task('theme', ['serve']);
-
   gulp.task('compile', tasks.compile);
   gulp.task('validate', tasks.validate);
   gulp.task('watch', tasks.watch);
-  tasks.default.push('watch');
-  gulp.task('default', tasks.default);
-
-  /**
-   * Theme task declaration
-   */
   gulp.task('build', ['compile', 'scripts', 'css']);
+  gulp.task('default', config.defaultTask);
 
   /**
    * Deploy
