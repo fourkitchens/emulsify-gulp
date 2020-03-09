@@ -15,6 +15,7 @@ async function pa11yRun(pa11yUrl, config) {
       standard: config.pa11y.standard,
       wait: config.pa11y.wait,
       actions: config.pa11y.actions,
+      chromeLaunchConfig: config.pa11y.chromeLaunchConfig
     }).then((results) => {
       if (results.issues === undefined || results.issues.length < 1) {
         // eslint-disable-next-line no-console
