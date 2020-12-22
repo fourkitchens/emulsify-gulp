@@ -39,7 +39,7 @@
     "lodash": "^4.17.4",
     "ngrok": "^3.1.0",
     "node-normalize-scss": "^8.0.0",
-    "node-notifier": "^5.1.2",
+    "node-notifier": "^8.0.1",
     "node-sass": "^4.10.0",
     "pa11y": "^5.1.0",
     "portscanner": "^2.1.1",
