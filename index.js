@@ -35,7 +35,7 @@ module.exports = function(gulp, config) {
   require('./gulp-tasks/gulp-css.js')(gulp, config, tasks, browserSync);
 
   // Tests
-  require('./gulp-tasks/gulp-tests.js')(gulp, config, tasks);
+  // require('./gulp-tasks/gulp-tests.js')(gulp, config, tasks);
 
   /**
    * Script Task
